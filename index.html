@@ -1,0 +1,1935 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Business Model — MaternaSync</title>
+<meta name="description" content="MaternaSync Business Model Canvas — a proposed business model for discussion and validation, built on the implemented maternal-care coordination platform.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='6' fill='%230E302B'/%3E%3Cg transform='translate(4 4) scale(0.667)' fill='none' stroke='%23DDEBE3' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5'/%3E%3Cpath d='M3.22 13H9.5l.5-1 2 4.5 2-7 1.5 3.5h5.27'/%3E%3C/g%3E%3C/svg%3E">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<script>
+/* Apply the saved theme and the "js" flag before first paint (no flash). Light is the default. */
+(function () {
+  var root = document.documentElement;
+  root.classList.add('js');
+  try {
+    if (localStorage.getItem('maternasync-bm-theme') === 'dark') root.setAttribute('data-theme', 'dark');
+  } catch (e) { /* storage blocked: the switch still works for this session */ }
+})();
+</script>
+
+<style>
+/* ==========================================================================
+   MaternaSync Business Model — "Clinical Warmth" design system
+   Tokens are the app's own (src/index.css).
+   ========================================================================== */
+
+:root {
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-heading: 'Plus Jakarta Sans', sans-serif;
+  --font-serif: 'Fraunces', Georgia, serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  /* Brand palette */
+  --forest-deep: #123C35;
+  --forest-dark: #0E302B;
+  --cream-warm: #F3EEE5;
+  --cream-soft: #FAF7F1;
+  --sage-muted: #B8D0C2;
+  --mint-soft: #DDEBE3;
+  --peach-muted: #F3D8CB;
+  --lavender-soft: #E5DDF2;
+  --navy-deep: #17324D;
+  --teal-primary: #167C72;
+  --terracotta: #C86F55;
+
+  /* Theme: Warm Clinical (default) */
+  --bg-primary: var(--cream-warm);
+  --bg-secondary: var(--cream-soft);
+  --bg-tertiary: #ECE3D4;
+  --bg-card: #FFFFFF;
+  --bg-card-hover: #FFFFFF;
+  --bg-glass: rgba(255, 255, 255, 0.9);
+
+  --border-color: rgba(18, 60, 53, 0.10);
+  --border-highlight: rgba(22, 124, 114, 0.35);
+
+  --text-primary: var(--navy-deep);
+  --text-secondary: #4B6269;
+  --text-muted: #566860;
+
+  --emerald-raw: var(--teal-primary);
+  --emerald-raw-bg: rgba(22, 124, 114, 0.12);
+  --emerald-raw-border: rgba(22, 124, 114, 0.3);
+
+  --purple-ai: #6D4FA6;
+  --purple-ai-bg: var(--lavender-soft);
+  --purple-ai-border: rgba(109, 79, 166, 0.28);
+
+  --amber-pending: #9A5B2E;
+  --amber-pending-bg: var(--peach-muted);
+
+  --rose-urgent: #9C3A22;
+  --rose-urgent-bg: rgba(200, 111, 85, 0.16);
+
+  --shadow-sm: 0 1px 2px rgba(18, 60, 53, 0.06);
+  --shadow-md: 0 4px 14px rgba(18, 60, 53, 0.08);
+  --shadow-lg: 0 10px 28px rgba(18, 60, 53, 0.10);
+
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 18px;
+  --radius-full: 9999px;
+
+  --btn-primary-bg: var(--forest-deep);
+  --btn-primary-bg-hover: var(--forest-dark);
+
+  /* Dark bar (the app's sidebar), used for the top bar */
+  --sidebar-bg: var(--forest-dark);
+  --sidebar-bg-elevated: #133B34;
+  --sidebar-text: rgba(243, 238, 229, 0.78);
+  --sidebar-text-active: var(--forest-dark);
+  --sidebar-active-bg: var(--mint-soft);
+  --sidebar-border: rgba(243, 238, 229, 0.10);
+}
+
+/* The dark theme is for the screen only: print is always light. */
+@media screen {
+  [data-theme='dark'] {
+    --bg-primary: var(--forest-dark);
+    --bg-secondary: #163F38;
+    --bg-tertiary: #1B4740;
+    --bg-card: #184039;
+    --bg-card-hover: #1B4740;
+    --bg-glass: rgba(14, 48, 43, 0.9);
+
+    --border-color: rgba(243, 238, 229, 0.10);
+    --border-highlight: rgba(184, 208, 194, 0.3);
+
+    --text-primary: var(--cream-soft);
+    --text-secondary: #B8D0C2;
+    --text-muted: #7E9A90;
+
+    --emerald-raw-bg: rgba(22, 124, 114, 0.22);
+    --amber-pending-bg: rgba(243, 216, 203, 0.18);
+    --rose-urgent-bg: rgba(200, 111, 85, 0.22);
+    --purple-ai-bg: rgba(229, 221, 242, 0.14);
+
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.2);
+    --shadow-md: 0 4px 14px rgba(0, 0, 0, 0.28);
+    --shadow-lg: 0 10px 28px rgba(0, 0, 0, 0.32);
+
+    --btn-primary-bg: var(--teal-primary);
+    --btn-primary-bg-hover: #1d9389;
+
+    color-scheme: dark;
+  }
+}
+
+/* Page-level aliases. They only point at the tokens above (plus the one darker
+   teal the brief allows) so that text keeps 4.5:1 contrast in both themes. */
+:root {
+  --accent-text: var(--teal-primary);                 /* large text and icons */
+  --accent-small: #0F6A61;                            /* small teal text, darkened for 4.5:1 on its tint */
+  --impl-text: #0F6A61;
+  --pending-text: color-mix(in srgb, var(--amber-pending) 75%, #000);
+  --ai-text: var(--purple-ai);
+  --muted: var(--text-muted);
+  --ring: var(--teal-primary);
+
+  --bar-h: 60px;
+  --subnav-h: 48px;
+  color-scheme: light;
+}
+@media screen {
+  [data-theme='dark'] {
+    --accent-text: var(--btn-primary-bg-hover);
+    --accent-small: var(--sage-muted);
+    --impl-text: var(--mint-soft);
+    --pending-text: var(--peach-muted);
+    --ai-text: var(--lavender-soft);
+    --muted: var(--text-secondary);
+    --ring: var(--sage-muted);
+  }
+}
+body.presenting { --bar-h: 0px; --subnav-h: 0px; }
+
+/* -------------------------------------------------------------------------
+   Base
+   ------------------------------------------------------------------------- */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.5;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+}
+.page-title {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+}
+a { color: inherit; }
+button { font-family: inherit; }
+ul, ol { list-style: none; }
+
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border-highlight); border-radius: var(--radius-full); }
+::-webkit-scrollbar-thumb:hover { background: var(--teal-primary); }
+
+/* Keyboard users can always see where they are. */
+:focus-visible { outline: 3px solid var(--ring); outline-offset: 2px; }
+.topbar :focus-visible, .exit-pill:focus-visible { outline-color: #f3b95f; }
+main:focus { outline: none; }
+
+/* A link that appears when a keyboard user tabs in. */
+.skip-link {
+  position: absolute; left: 12px; top: -64px; z-index: 300;
+  padding: 10px 16px; border-radius: var(--radius-md);
+  background: #fff; color: var(--forest-dark); font-weight: 700; text-decoration: none;
+  box-shadow: var(--shadow-md);
+}
+.skip-link:focus { top: 12px; }
+
+/* Lucide icons: sized by the --i variable of the surrounding component. */
+:is(i[data-lucide], svg.lucide) { width: var(--i, 16px); height: var(--i, 16px); flex: none; display: inline-block; }
+
+.container { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
+
+/* -------------------------------------------------------------------------
+   Motion: the app's fadeIn, nothing else
+   ------------------------------------------------------------------------- */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+html.js .reveal { opacity: 0; }
+html.js .reveal.in-view { opacity: 1; animation: fadeIn 0.2s ease-out; }
+
+/* -------------------------------------------------------------------------
+   Cards, badges, buttons (the app's recipes)
+   ------------------------------------------------------------------------- */
+.glass-panel {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.15s ease, border-color 0.15s ease;
+}
+.glass-panel:hover { box-shadow: var(--shadow-md); }
+
+.badge-raw, .badge-ai, .badge-pending, .badge-neutral {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 3px 10px; border-radius: var(--radius-full);
+  font-size: 0.72rem; font-weight: 700; letter-spacing: 0.02em;
+  border: 1px solid transparent; --i: 12px; line-height: 1.5;
+}
+.badge-raw     { background: var(--emerald-raw-bg); color: var(--impl-text); border-color: var(--emerald-raw-border); }
+.badge-ai      { background: var(--purple-ai-bg);   color: var(--ai-text);   border-color: var(--purple-ai-border); }
+.badge-pending { background: var(--amber-pending-bg); color: var(--pending-text); border-color: rgba(154, 91, 46, 0.25); }
+.badge-neutral { background: var(--bg-tertiary);    color: var(--muted);     border-color: var(--border-color); }
+
+/* Small status tag next to a list item */
+.tag {
+  display: inline-flex; align-items: center; margin-left: 6px; vertical-align: 1px;
+  padding: 1px 8px; border-radius: var(--radius-full);
+  font-size: 0.68rem; font-weight: 700; letter-spacing: 0.02em; line-height: 1.5;
+  border: 1px solid transparent; white-space: nowrap;
+}
+.tag-built   { background: var(--emerald-raw-bg);   color: var(--impl-text);    border-color: var(--emerald-raw-border); }
+.tag-warn    { background: var(--amber-pending-bg); color: var(--pending-text); border-color: rgba(154, 91, 46, 0.25); }
+.tag-planned { background: var(--bg-tertiary);      color: var(--muted);        border-color: var(--border-color); }
+
+.btn-primary {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  background: var(--btn-primary-bg); color: #ffffff;
+  font-weight: 600; font-size: 0.875rem; padding: 9px 18px;
+  border-radius: var(--radius-md); border: none; cursor: pointer; text-decoration: none;
+  box-shadow: var(--shadow-sm);
+  transition: background 0.15s ease, box-shadow 0.15s ease, transform 0.1s ease;
+}
+.btn-primary:hover { background: var(--btn-primary-bg-hover); box-shadow: var(--shadow-md); }
+.btn-primary:active { transform: translateY(1px); }
+
+.btn-secondary {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  background: transparent; color: var(--forest-deep);
+  font-weight: 600; font-size: 0.875rem; padding: 8px 16px;
+  border-radius: var(--radius-md); border: 1px solid rgba(18, 60, 53, 0.28);
+  cursor: pointer; text-decoration: none;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+.btn-secondary:hover { background: rgba(18, 60, 53, 0.06); border-color: var(--forest-deep); }
+@media screen {
+  [data-theme='dark'] .btn-secondary { color: var(--text-primary); border-color: var(--border-highlight); }
+  [data-theme='dark'] .btn-secondary:hover { background: rgba(243, 238, 229, 0.08); border-color: var(--text-primary); }
+}
+
+.btn-outline-emerald {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: transparent; color: var(--accent-small);
+  border: 1px solid var(--emerald-raw-border);
+  padding: 6px 14px; border-radius: var(--radius-md);
+  font-size: 0.825rem; font-weight: 600; cursor: pointer;
+  transition: background 0.15s ease; --i: 15px;
+}
+.btn-outline-emerald:hover { background: var(--emerald-raw-bg); }
+.btn-outline-emerald .chev { display: inline-flex; transition: transform 0.2s ease; }
+.block.is-open .btn-outline-emerald .chev { transform: rotate(180deg); }
+
+.tile {
+  width: 46px; height: 46px; flex: none; --i: 22px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: var(--radius-md); background: var(--mint-soft); color: var(--forest-dark);
+}
+.tile.sm { width: 34px; height: 34px; --i: 18px; }
+
+.eyebrow {
+  font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--accent-small);
+}
+
+/* -------------------------------------------------------------------------
+   Top bar (the app's sidebar colour)
+   ------------------------------------------------------------------------- */
+.topbar {
+  position: sticky; top: 0; z-index: 100;
+  height: var(--bar-h);
+  background: var(--sidebar-bg);
+  border-bottom: 1px solid var(--sidebar-border);
+}
+.topbar-inner {
+  max-width: 1180px; height: 100%; margin: 0 auto; padding: 0 24px;
+  display: flex; align-items: center; gap: 12px;
+}
+.brand { display: flex; align-items: center; gap: 10px; text-decoration: none; border-radius: var(--radius-md); }
+.brand-tile {
+  width: 36px; height: 36px; border-radius: var(--radius-md); flex: none; --i: 20px;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--sidebar-active-bg); color: var(--forest-dark);
+}
+.brand-name { font-size: 1.05rem; font-weight: 700; color: #fff; }
+.bar-divider { width: 1px; height: 22px; background: var(--sidebar-border); flex: none; }
+.bar-label { font-size: 0.7rem; color: var(--sidebar-text); white-space: nowrap; }
+.bar-actions { margin-left: auto; display: flex; align-items: center; gap: 8px; }
+.bar-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  height: 36px; padding: 0 14px; border-radius: var(--radius-md); --i: 16px;
+  font-size: 0.85rem; font-weight: 600; cursor: pointer; white-space: nowrap;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+.bar-btn.ghost { background: transparent; color: var(--cream-warm); border: 1px solid rgba(243, 238, 229, 0.25); }
+.bar-btn.ghost:hover { background: rgba(243, 238, 229, 0.08); }
+.bar-btn.mint { background: var(--sidebar-active-bg); color: var(--sidebar-text-active); border: 1px solid transparent; }
+.bar-btn.mint:hover { background: var(--sage-muted); }
+
+/* -------------------------------------------------------------------------
+   Sub-navigation
+   ------------------------------------------------------------------------- */
+.subnav {
+  position: sticky; top: var(--bar-h); z-index: 90;
+  background: var(--bg-glass);
+  -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border-color);
+}
+.subnav-inner {
+  max-width: 1180px; height: var(--subnav-h); margin: 0 auto; padding: 0 24px;
+  display: flex; align-items: center; gap: 4px; overflow-x: auto;
+}
+.subnav a {
+  display: inline-flex; flex-direction: column; align-items: center;
+  padding: 6px 14px; border-radius: var(--radius-full);
+  font-size: 0.85rem; font-weight: 500; color: var(--text-secondary);
+  text-decoration: none; white-space: nowrap;
+  transition: background 0.15s ease;
+}
+/* reserves the bold width so the active link does not make the row jump */
+.subnav a::after { content: attr(data-text); font-weight: 700; height: 0; overflow: hidden; visibility: hidden; display: block; }
+.subnav a:hover { background: var(--bg-tertiary); }
+.subnav a.active { background: var(--sidebar-active-bg); color: var(--sidebar-text-active); font-weight: 700; }
+
+/* -------------------------------------------------------------------------
+   Sections
+   ------------------------------------------------------------------------- */
+.section { padding: 64px 0; scroll-margin-top: calc(var(--bar-h) + var(--subnav-h)); }
+.section.alt { background: var(--bg-secondary); border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); }
+.sec-head { max-width: 720px; margin-bottom: 32px; }
+.sec-head h2 { font-size: clamp(1.7rem, 3vw, 2.3rem); line-height: 1.2; margin: 6px 0 10px; }
+.sec-head p { color: var(--text-secondary); font-size: 1rem; }
+
+/* -------------------------------------------------------------------------
+   Hero (the app's landing page: cream, brand lockup, serif title)
+   ------------------------------------------------------------------------- */
+.hero { padding: 56px 0 64px; scroll-margin-top: 0; }
+.hero-inner { display: flex; flex-direction: column; align-items: center; text-align: center; }
+.lockup { display: flex; align-items: center; gap: 10px; margin-bottom: 22px; }
+.lockup-tile {
+  width: 42px; height: 42px; border-radius: 12px; --i: 22px;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--forest-dark); color: var(--mint-soft);
+}
+.lockup-name { font-size: 1.4rem; font-weight: 700; color: var(--text-primary); }
+.hero .badge-pending { margin-bottom: 18px; }
+.hero-title { font-size: clamp(2.2rem, 5vw, 3.4rem); line-height: 1.1; margin-bottom: 14px; }
+.hero-title .accent { color: var(--accent-text); }
+.hero-sub { font-size: 1.25rem; font-weight: 500; color: var(--text-primary); max-width: 640px; margin-bottom: 12px; }
+.hero-support { font-size: 1.05rem; color: var(--text-secondary); max-width: 560px; margin-bottom: 28px; }
+.chips { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-bottom: 32px; }
+.chip {
+  display: inline-flex; align-items: center; gap: 8px; --i: 16px;
+  padding: 7px 14px; border-radius: var(--radius-full);
+  background: var(--bg-card); border: 1px solid var(--border-color); box-shadow: var(--shadow-sm);
+  font-size: 0.85rem; font-weight: 600; color: var(--text-primary);
+}
+.chip :is(i, svg) { color: var(--accent-text); }
+
+/* -------------------------------------------------------------------------
+   Canvas
+   ------------------------------------------------------------------------- */
+.legend { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; margin-bottom: 20px; }
+.legend-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+
+/* Value Propositions runs across the top (its four detail columns sit side by side inside it).
+   The other eight blocks sit in two rows of cards with similar natural heights, so no card is
+   stretched taller than its content. */
+.canvas-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-auto-rows: minmax(150px, auto);
+  gap: 16px;
+  grid-template-areas:
+    "value         value      value     value    value"
+    "partners      activities resources channels segments"
+    "relationships relationships revenue revenue revenue"
+    "cost          cost          cost    cost    cost";
+}
+.b-cost .bullets { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 8px 28px; }
+/* A card that is expanded must not stretch its neighbours: in that row every card keeps its own height. */
+@media (min-width: 1101px) {
+  .canvas-grid:has(.row-1.is-open) .row-1,
+  .canvas-grid:has(.row-2.is-open) .row-2 { align-self: start; }
+  .canvas-grid:has(.row-3.is-open) .row-3 { align-self: start; }
+}
+.b-partners      { grid-area: partners; }
+.b-activities    { grid-area: activities; }
+.b-value         { grid-area: value; }
+.b-relationships { grid-area: relationships; }
+.b-segments      { grid-area: segments; }
+.b-resources     { grid-area: resources; }
+.b-channels      { grid-area: channels; }
+.b-cost          { grid-area: cost; }
+.b-revenue       { grid-area: revenue; }
+
+.block { padding: 22px; display: flex; flex-direction: column; min-width: 0; }
+.block > * + * { margin-top: 12px; }
+.block.featured { border-color: var(--border-highlight); box-shadow: var(--shadow-md); }
+.block.featured .tile { background: var(--forest-deep); color: var(--mint-soft); }
+.block-head { display: flex; align-items: flex-start; gap: 10px; }
+.block-title-wrap { display: flex; flex-direction: column; align-items: flex-start; gap: 6px; min-width: 0; padding-top: 1px; }
+.block-title { font-size: 1.1rem; line-height: 1.25; }
+.block-desc { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5; }
+.bullets { display: flex; flex-direction: column; gap: 7px; font-size: 0.84rem; color: var(--text-secondary); }
+.bullets li, .dlist li { position: relative; padding-left: 16px; overflow-wrap: anywhere; }
+.bullets li::before, .dlist li::before {
+  content: ""; position: absolute; left: 2px; top: 0.55em;
+  width: 6px; height: 6px; border-radius: var(--radius-full); background: var(--accent-text);
+}
+.callout { align-self: flex-start; }
+.toggle { align-self: flex-start; }
+.grow { flex: 1 1 0; margin-top: 0 !important; } /* pins the toggle to the card bottom when a row makes a card a little taller */
+
+/* Value Propositions: the full-width, highlighted card */
+.b-value { padding: 28px; }
+.b-value .block-head { align-items: center; gap: 14px; }
+.b-value .block-title-wrap { flex-direction: row; flex-wrap: wrap; align-items: center; gap: 6px 12px; }
+.b-value .block-title { font-size: 1.4rem; }
+.b-value .block-desc { font-size: 0.95rem; max-width: 720px; }
+.b-value .bullets { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 8px 28px; font-size: 0.88rem; }
+
+/* Expandable detail: height animates with grid rows */
+.detail { display: grid; grid-template-rows: 0fr; margin-top: 0 !important; transition: grid-template-rows 0.2s ease; }
+.block.is-open .detail { grid-template-rows: 1fr; }
+.detail-inner { min-height: 0; overflow: hidden; visibility: hidden; transition: visibility 0s linear 0.2s; }
+.block.is-open .detail-inner { visibility: visible; transition-delay: 0s; }
+.detail-body { margin-top: 14px; padding-top: 14px; border-top: 1px dashed var(--border-color); display: flex; flex-direction: column; gap: 14px; }
+
+.d-sub, .d-title {
+  font-size: 0.72rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted);
+}
+.d-title { margin-bottom: 8px; }
+.dlist { display: flex; flex-direction: column; gap: 6px; font-size: 0.8rem; color: var(--text-secondary); }
+.dlist li { line-height: 1.45; }
+.dlist strong, .cost-row strong { color: var(--text-primary); }
+.d-sub + .dlist { margin-top: 8px; }
+.note {
+  background: var(--bg-tertiary); border-radius: var(--radius-md); padding: 10px 12px;
+  font-size: 0.78rem; font-style: italic; color: var(--muted); line-height: 1.5;
+}
+
+.cols { display: grid; gap: 16px; }
+.cols-4 { grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); }
+.cols-3 { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
+.cost-list { display: flex; flex-direction: column; gap: 6px; font-size: 0.8rem; color: var(--text-secondary); }
+.cost-row { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
+.cost-row .amt { font-family: var(--font-mono); font-weight: 500; font-size: 0.78rem; color: var(--text-primary); white-space: nowrap; }
+.cost-row.total { margin-top: 4px; padding-top: 8px; border-top: 1px solid var(--border-color); font-weight: 700; color: var(--text-primary); }
+.cost-row.total .amt { font-weight: 500; }
+
+.trio { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; }
+.mini { background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 12px; }
+.mini-label { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; font-size: 0.85rem; font-weight: 700; color: var(--text-primary); }
+.mini p { font-size: 0.8rem; color: var(--text-secondary); line-height: 1.45; }
+.mini-icon { width: 26px; height: 26px; --i: 14px; border-radius: var(--radius-sm); background: var(--mint-soft); color: var(--forest-dark); display: flex; align-items: center; justify-content: center; }
+
+.journey { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 6px; }
+.jstep { display: inline-flex; align-items: center; gap: 6px; flex-wrap: nowrap; max-width: 100%; }
+.jchip {
+  display: inline-flex; align-items: center; gap: 6px; --i: 14px;
+  padding: 5px 10px; border-radius: var(--radius-full);
+  background: var(--emerald-raw-bg); border: 1px solid var(--emerald-raw-border);
+  font-size: 0.76rem; font-weight: 600; color: var(--text-primary);
+}
+.jchip :is(i, svg) { color: var(--accent-text); }
+.jarrow { color: var(--muted); display: inline-flex; --i: 14px; }
+
+.seg { display: inline-flex; gap: 2px; padding: 3px; border-radius: var(--radius-md); background: var(--bg-tertiary); border: 1px solid var(--border-color); align-self: flex-start; }
+.seg button {
+  padding: 6px 12px; border: none; border-radius: calc(var(--radius-md) - 3px);
+  background: transparent; color: var(--text-secondary);
+  font-size: 0.78rem; font-weight: 600; cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.seg button:hover { color: var(--text-primary); }
+.seg button[aria-pressed='true'] { background: var(--btn-primary-bg); color: #fff; }
+.rev-view { display: flex; flex-direction: column; gap: 10px; }
+.rev-view[hidden] { display: none; }
+.view-title { display: none; font-size: 0.78rem; font-weight: 700; color: var(--text-primary); }
+.view-caption { font-size: 0.72rem; font-weight: 600; color: var(--muted); }
+.rev-list { display: flex; flex-direction: column; gap: 8px; }
+.rev-row { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 4px 10px; padding-bottom: 8px; border-bottom: 1px solid var(--border-color); }
+.rev-name { font-size: 0.82rem; font-weight: 600; color: var(--text-primary); }
+.rev-pill {
+  padding: 3px 10px; border-radius: var(--radius-md); max-width: 100%;
+  background: var(--emerald-raw-bg); border: 1px solid var(--emerald-raw-border);
+  font-size: 0.74rem; font-weight: 600; color: var(--text-primary); line-height: 1.4;
+}
+
+/* -------------------------------------------------------------------------
+   Go-to-market
+   ------------------------------------------------------------------------- */
+.track { --g: 20px; position: relative; }
+.track-line {
+  position: absolute; top: 23px; height: 3px; border-radius: var(--radius-full);
+  left: calc((100% - 3 * var(--g)) / 8); right: calc((100% - 3 * var(--g)) / 8);
+  background: var(--border-color);
+}
+.track-progress {
+  display: block; height: 100%; width: 0; border-radius: var(--radius-full); background: var(--teal-primary);
+  transition: width 1.2s ease-out;
+}
+.track.is-on .track-progress { width: 75%; }
+.phases { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--g); position: relative; }
+.phase { display: flex; flex-direction: column; align-items: center; gap: 16px; }
+.phase-dot {
+  position: relative; z-index: 1; width: 50px; height: 50px; --i: 22px; flex: none;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: var(--radius-full); background: var(--forest-dark); color: var(--mint-soft);
+  border: 1px solid var(--sidebar-border);
+}
+@media screen { [data-theme='dark'] .phase-dot { border-color: var(--border-highlight); } }
+.phase-num {
+  position: absolute; top: -4px; right: -6px; min-width: 20px; height: 20px; padding: 0 5px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: var(--radius-full); background: var(--bg-card); border: 1px solid var(--border-highlight);
+  color: var(--text-primary); font-family: var(--font-mono); font-size: 0.68rem; font-weight: 500;
+}
+.phase-card { width: 100%; flex: 1; padding: 22px; display: flex; flex-direction: column; gap: 10px; }
+.phase-label { font-family: var(--font-mono); font-size: 0.72rem; font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); }
+.phase-card h3 { font-size: 1.1rem; line-height: 1.25; }
+.phase.future .phase-dot { background: var(--bg-card); color: var(--muted); border: 2px dashed var(--border-highlight); }
+.phase.future .phase-card { border-style: dashed; border-color: var(--border-highlight); background: transparent; }
+
+/* -------------------------------------------------------------------------
+   Packages
+   ------------------------------------------------------------------------- */
+.pk-legend { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; margin-top: 12px; font-size: 0.8rem; color: var(--muted); }
+.pk-legend .tag { margin-left: 0; }
+.packages { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; padding-top: 12px; }
+.pkg { position: relative; padding: 28px; display: flex; flex-direction: column; gap: 14px; }
+.pkg.featured { border-color: var(--border-highlight); box-shadow: var(--shadow-md); }
+.pkg-badge {
+  position: absolute; top: -12px; left: 24px;
+  background: var(--teal-primary); border-color: var(--teal-primary); color: #fff;
+}
+.pkg h3 { font-size: 1.5rem; line-height: 1.15; }
+.pkg-tagline { font-size: 0.9rem; font-style: italic; color: var(--text-secondary); margin-top: -8px; }
+.features { display: flex; flex-direction: column; gap: 10px; font-size: 0.86rem; color: var(--text-secondary); flex: 1; }
+.features li { display: flex; align-items: flex-start; gap: 10px; line-height: 1.45; --i: 16px; }
+.features li > :is(i, svg) { margin-top: 2px; color: var(--accent-text); }
+.features li.warn > :is(i, svg) { color: var(--pending-text); }
+.features li.planned > :is(i, svg) { color: var(--muted); }
+.features .lead { font-weight: 700; color: var(--text-primary); }
+.pkg-foot { padding-top: 14px; border-top: 1px dashed var(--border-color); font-size: 0.76rem; font-style: italic; color: var(--muted); }
+
+/* -------------------------------------------------------------------------
+   Pilot plan
+   ------------------------------------------------------------------------- */
+.stat-card-row { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+.stat-value.xlong { font-size: 1.05rem; }
+.stat { padding: 14px 18px; display: flex; align-items: center; gap: 12px; }
+.stat-tile {
+  width: 38px; height: 38px; flex: none; --i: 18px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: var(--radius-md); background: var(--bg-tertiary); color: var(--emerald-raw);
+}
+.stat-body { min-width: 0; }
+.stat-value { font-size: 1.35rem; font-weight: 800; line-height: 1.15; color: var(--text-primary); }
+.stat-label { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.03em; text-transform: uppercase; color: var(--muted); }
+.stat-sub { margin-top: 3px; font-size: 0.7rem; font-style: italic; color: var(--muted); }
+.stat-sub .tag { margin-left: 0; font-style: normal; }
+.smallprint { margin-top: 14px; font-size: 0.8rem; color: var(--muted); }
+.pilot-lists { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; margin-top: 32px; }
+.plist { padding: 26px; display: flex; flex-direction: column; gap: 14px; }
+.plist.assume { border-left: 4px solid var(--terracotta); }
+.plist-head { display: flex; align-items: center; gap: 12px; }
+.plist h3 { font-size: 1.1rem; line-height: 1.25; }
+.plist-sub { font-size: 0.78rem; color: var(--muted); margin-top: 2px; }
+.plist .dlist { font-size: 0.88rem; gap: 9px; }
+
+/* -------------------------------------------------------------------------
+   Footer
+   ------------------------------------------------------------------------- */
+/* -------------------------------------------------------------------------
+   Source tags (S6 ...), evidence cards and tables, the Sources list
+   ------------------------------------------------------------------------- */
+.stag {
+  display: inline; margin: 0; padding: 0 5px;
+  border-radius: var(--radius-full); border: 1px solid var(--emerald-raw-border); background: var(--bg-card);
+  color: var(--accent-small); font-family: var(--font-mono); font-size: 0.68rem; font-weight: 500;
+  font-style: normal; letter-spacing: 0; text-transform: none; line-height: 1.6; text-decoration: none;
+}
+.stag:hover { border-color: var(--accent-small); }
+.d-text { font-size: 0.8rem; color: var(--text-secondary); line-height: 1.5; margin-top: 6px; }
+.d-sub + .d-text { margin-top: 8px; }
+
+.ev-group { margin-top: 44px; }
+.ev-group:first-of-type { margin-top: 8px; }
+.ev-title { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; margin-bottom: 16px; }
+.ev-title h3 { font-size: 1.4rem; line-height: 1.25; }
+.ev-text { max-width: 860px; font-size: 0.92rem; color: var(--text-secondary); line-height: 1.6; margin-top: 14px; }
+.ev-title + .ev-text { margin-top: 0; margin-bottom: 14px; }
+.ev-text strong, .ev-card p strong, .need p strong, .ev-list strong { color: var(--text-primary); }
+
+.need-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+.need { padding: 22px; display: flex; flex-direction: column; gap: 10px; }
+.need-stat { font-size: 1.45rem; line-height: 1.2; color: var(--text-primary); }
+.need p { font-size: 0.86rem; color: var(--text-secondary); line-height: 1.55; }
+.ev-grid { display: grid; gap: 16px; }
+.ev-grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.ev-grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.ev-card { padding: 24px; display: flex; flex-direction: column; gap: 10px; }
+.ev-card.wide { grid-column: 1 / -1; }
+.ev-grid-2 .ev-card:nth-child(2) { grid-row: span 2; } /* the tall card sits beside the two short ones, so no gap */
+.ev-card h4 { font-size: 1rem; line-height: 1.3; }
+.ev-card p { font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6; }
+.ev-card.takeaways { margin-top: 16px; }
+.ev-card.unverified { border-left: 4px solid var(--terracotta); }
+.ev-list { font-size: 0.9rem; gap: 10px; }
+.numlist { counter-reset: n; display: flex; flex-direction: column; gap: 9px; font-size: 0.88rem; color: var(--text-secondary); line-height: 1.55; }
+.numlist li { counter-increment: n; position: relative; padding-left: 34px; overflow-wrap: anywhere; }
+.numlist li::before {
+  content: counter(n); position: absolute; left: 0; top: 1px; width: 22px; height: 22px;
+  display: flex; align-items: center; justify-content: center; border-radius: var(--radius-full);
+  background: var(--bg-tertiary); color: var(--text-primary); font-family: var(--font-mono); font-size: 0.7rem; font-weight: 500;
+}
+
+.table-wrap { overflow-x: auto; }
+.data-table { width: 100%; border-collapse: collapse; font-size: 0.84rem; }
+.data-table th, .data-table td { padding: 12px 16px; text-align: left; vertical-align: top; border-bottom: 1px solid var(--border-color); color: var(--text-secondary); line-height: 1.5; }
+.data-table thead th { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); background: var(--bg-secondary); white-space: nowrap; }
+.data-table tbody th { font-weight: 600; color: var(--text-primary); min-width: 160px; }
+.data-table tbody tr:last-child th, .data-table tbody tr:last-child td { border-bottom: none; }
+.data-table td strong { color: var(--text-primary); }
+
+.sources { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.source { padding: 18px 20px; display: flex; flex-direction: column; gap: 8px; scroll-margin-top: calc(var(--bar-h) + var(--subnav-h) + 12px); }
+.source:target { border-color: var(--border-highlight); box-shadow: var(--shadow-md); }
+.source-top { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px 10px; }
+.sid { font-family: var(--font-mono); font-size: 0.8rem; font-weight: 500; padding: 1px 9px; border-radius: var(--radius-full); background: var(--bg-tertiary); color: var(--text-primary); }
+.source p { font-size: 0.84rem; color: var(--text-secondary); line-height: 1.5; }
+.source .d-sub { display: block; margin-bottom: 1px; }
+.source-supports { color: var(--text-primary) !important; font-weight: 500; }
+.source-links { display: flex; flex-direction: column; gap: 3px; }
+.source-links a { font-family: var(--font-mono); font-size: 0.72rem; color: var(--accent-small); overflow-wrap: anywhere; text-underline-offset: 2px; }
+
+.footer { background: var(--bg-secondary); border-top: 1px solid var(--border-color); padding: 32px 0 40px; font-size: 0.8rem; color: var(--muted); }
+.footer p + p { margin-top: 8px; }
+.footer .links { display: flex; flex-wrap: wrap; gap: 8px 18px; margin-top: 14px; }
+.footer .links a { display: inline-flex; align-items: center; gap: 6px; --i: 14px; font-weight: 600; color: var(--accent-small); text-decoration: underline; text-underline-offset: 3px; }
+
+/* -------------------------------------------------------------------------
+   Presentation Mode
+   ------------------------------------------------------------------------- */
+.exit-pill {
+  display: none; position: fixed; right: 20px; bottom: 20px; z-index: 200;
+  align-items: center; gap: 8px; --i: 16px;
+  padding: 10px 18px; border-radius: var(--radius-full); border: 1px solid rgba(243, 238, 229, 0.25);
+  background: var(--sidebar-bg); color: var(--cream-warm);
+  font-size: 0.85rem; font-weight: 600; cursor: pointer; box-shadow: var(--shadow-lg);
+}
+.exit-pill:hover { background: var(--sidebar-bg-elevated); }
+body.presenting .exit-pill { display: inline-flex; }
+body.presenting .topbar, body.presenting .subnav { display: none; }
+body.presenting .section { padding: 40px 0; }
+body.presenting .hero { padding: 32px 0 40px; }
+body.presenting .sec-head { margin-bottom: 22px; }
+
+/* -------------------------------------------------------------------------
+   Responsive
+   ------------------------------------------------------------------------- */
+@media (max-width: 1100px) {
+  .canvas-grid { display: flex; flex-direction: column; gap: 16px; }
+  .block { grid-area: auto; }
+  .phases { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 28px; }
+  .track-line { display: none; }
+  .phase { align-items: flex-start; }
+  .packages { grid-template-columns: 1fr; gap: 28px; }
+  .stat-card-row { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .need-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ev-grid-3 { grid-template-columns: 1fr; }
+}
+@media (max-width: 720px) {
+  .section { padding: 48px 0; }
+  .hero { padding: 40px 0 48px; }
+  .stat-card-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .stat { padding: 12px 14px; gap: 10px; }
+  .stat-value.long { font-size: 1rem; } /* the app shrinks values longer than 5 characters; here, on phones only */
+  .pilot-lists { grid-template-columns: 1fr; }
+  .need-grid, .ev-grid-2, .sources { grid-template-columns: 1fr; }
+  .ev-grid-2 .ev-card:nth-child(2) { grid-row: auto; }
+  .ev-card { padding: 20px; }
+  .data-table th, .data-table td { padding: 10px 12px; }
+  .bar-divider, .bar-label { display: none; }
+  .bar-btn { width: 36px; padding: 0; }
+  .bar-btn .txt { display: none; }
+  .topbar-inner { gap: 10px; padding: 0 16px; }
+  .subnav-inner, .container { padding-left: 16px; padding-right: 16px; }
+  .subnav a { padding: 6px 11px; }
+  .pkg { padding: 24px; }
+}
+@media (max-width: 640px) {
+  .phases { grid-template-columns: 1fr; }
+}
+@media (max-width: 420px) {
+  .subnav-inner { gap: 0; padding-left: 8px; padding-right: 8px; }
+  .subnav a { padding: 6px 6px; font-size: 0.72rem; }
+}
+
+/* -------------------------------------------------------------------------
+   Reduced motion: no transitions, no animation, everything shown at once
+   ------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  html.js .reveal { opacity: 1; }
+}
+
+/* -------------------------------------------------------------------------
+   Print / Export: white page, light theme, every block open, no controls
+   ------------------------------------------------------------------------- */
+@media print {
+  @page { margin: 14mm; }
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  html, body, .section.alt, .hero, .footer { background: #fff !important; }
+  .topbar, .subnav, .exit-pill, .skip-link, .hero-cta, .toggle, .seg { display: none !important; }
+  html.js .reveal, html.js .reveal.in-view { opacity: 1 !important; animation: none !important; transform: none !important; }
+  .glass-panel, .phase, .jstep { box-shadow: none !important; break-inside: avoid; page-break-inside: avoid; }
+  .section { padding: 24px 0; break-inside: auto; }
+  .sec-head { break-inside: avoid; page-break-inside: avoid; }
+  .sec-head, .legend, .pk-legend, .smallprint { break-after: avoid; page-break-after: avoid; }
+  #gtm, #packages, #pilot, #evidence { break-before: page; page-break-before: always; }
+  .table-wrap { overflow: visible; }
+  .data-table { font-size: 0.72rem; }
+  .data-table th, .data-table td { padding: 6px 8px; }
+  .data-table tr { break-inside: avoid; page-break-inside: avoid; }
+  .ev-group { margin-top: 22px; break-inside: auto; }
+  .ev-title { break-after: avoid; page-break-after: avoid; }
+  .need-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+  .need { padding: 12px; }
+  .need-stat { font-size: 1rem; }
+  .ev-grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+  .sources { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  .source { padding: 10px 12px; gap: 4px; }
+  .source-links a::after { content: none; }
+  .hero { padding: 16px 0 24px; }
+  /* two newspaper columns on paper keep the printout short and never split a card; the value block spans both */
+  .canvas-grid { display: block; column-count: 2; column-gap: 12px; }
+  .block { grid-area: auto; padding: 16px; margin-bottom: 12px; break-inside: avoid; page-break-inside: avoid; }
+  .canvas-grid :is(.b-value, .b-revenue, .b-partners, .b-cost) { column-span: all; } /* tall blocks need the full width to fit one page */
+  .cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+  .b-value { padding: 14px 16px; }
+  .b-value > * + * { margin-top: 8px; }
+  .b-value .bullets { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px 20px; font-size: 0.8rem; }
+  .b-value .dlist { font-size: 0.72rem; gap: 3px; }
+  .b-value .detail-body { gap: 10px; margin-top: 8px; padding-top: 10px; }
+  .sec-head { margin-bottom: 14px; }
+  .packages { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+  .pkg { padding: 18px; }
+  .pkg-badge { position: static; align-self: flex-start; }
+  .features { font-size: 0.8rem; }
+  .detail { grid-template-rows: 1fr !important; transition: none !important; }
+  .detail-inner { visibility: visible !important; overflow: visible !important; transition: none !important; }
+  .rev-view, .rev-view[hidden] { display: flex !important; }
+  .view-title { display: block; }
+  .view-caption { display: none; }
+  .track-line { display: none; }
+  .phases { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 16px; }
+  .phase { align-items: stretch; }
+  .stat-card-row { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .pilot-lists { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .footer .links a::after { content: " (" attr(href) ")"; font-weight: 400; text-decoration: none; }
+}
+</style>
+</head>
+
+<body>
+<a class="skip-link" href="#main" id="skip-link"></a>
+<header class="topbar" id="topbar"></header>
+<nav class="subnav" id="subnav" aria-label="Page sections"></nav>
+
+<main id="main" tabindex="-1">
+  <section class="hero" id="hero" aria-labelledby="hero-title"></section>
+  <section class="section alt" id="canvas" aria-labelledby="canvas-title"></section>
+  <section class="section" id="gtm" aria-labelledby="gtm-title"></section>
+  <section class="section alt" id="packages" aria-labelledby="packages-title"></section>
+  <section class="section" id="pilot" aria-labelledby="pilot-title"></section>
+  <section class="section alt" id="evidence" aria-labelledby="evidence-title"></section>
+  <section class="section" id="sources" aria-labelledby="sources-title"></section>
+</main>
+
+<footer class="footer" id="footer"></footer>
+<button type="button" class="exit-pill" id="exit-pill"></button>
+<noscript><p style="padding:24px;text-align:center">This page needs JavaScript to display its content.</p></noscript>
+
+<script defer src="https://unpkg.com/lucide@1.48.0/dist/umd/lucide.min.js" integrity="sha384-Hh7C333mXel+qppGoFs4qAOXp7h67eur4XsQVF2bvHAM3MQ4DX4cQI7oRCzb98J4" crossorigin="anonymous"></script>
+
+<script>
+(function () {
+  'use strict';
+
+  /* =======================================================================
+     DATA — every word on the page lives here. Change copy here, not in markup.
+     Icon names are Lucide (pinned to lucide@1.48.0).
+     ======================================================================= */
+  const DATA = {
+    ui: {
+      skip: 'Skip to content',
+      brand: 'MaternaSync',
+      barLabel: 'Business Model',
+      present: 'Presentation Mode',
+      exitPresent: 'Exit Presentation',
+      print: 'Print / Export',
+      darkMode: 'Dark mode',
+      lightMode: 'Light mode',
+      expand: 'Expand details',
+      collapse: 'Collapse details',
+      implemented: 'Implemented',
+      proposed: 'Proposed',
+      revenueView: 'Revenue view',
+      nav: [
+        { id: 'canvas', label: 'Canvas' },
+        { id: 'gtm', label: 'Go-To-Market' },
+        { id: 'packages', label: 'Packages' },
+        { id: 'pilot', label: 'Pilot Plan' },
+        { id: 'evidence', label: 'Evidence' }
+      ]
+    },
+
+    hero: {
+      eyebrow: 'Business Model Proposal',
+      titlePlain: 'MaternaSync',
+      titleAccent: 'Business Model',
+      subtitle: 'From scattered messages to one connected maternal-care record.',
+      support: 'MaternaSync connects pregnant women, caregivers and doctors through three portals, with a care assistant that does routine admin and doctors who make every decision.',
+      badges: [
+        { icon: 'users', label: 'Patient · Caregiver · Doctor' },
+        { icon: 'user-check', label: 'AI Assists, Doctors Decide' },
+        { icon: 'languages', label: 'English · Hindi · Tamil · Telugu' },
+        { icon: 'wifi-off', label: 'Works Offline' }
+      ],
+      button: 'View the Canvas'
+    },
+
+    canvas: {
+      eyebrow: 'The Business Model Canvas',
+      heading: 'Nine blocks, one maternal-care platform.',
+      description: 'Click any block to expand full detail. Tags mark whether a block reflects an implemented platform capability or a proposed business-model assumption.',
+      legendLabel: 'Legend',
+      legend: ['Implemented capability', 'Proposed business assumption'],
+      // Which row of cards a block sits in on wide screens (Value Propositions has its own full-width row).
+      rows: { partners: 1, activities: 1, resources: 1, channels: 1, segments: 1, relationships: 2, revenue: 2, cost: 3 },
+      // Order here = reading and tab order on small screens; the desktop layout uses grid areas.
+      blocks: [
+        {
+          key: 'value', title: 'Value Propositions', icon: 'gem', tag: 'implemented', featured: true, open: true,
+          desc: 'One connected record and one clear next step for the woman, her family and her doctor.',
+          bullets: [
+            'One place for check-ins, visits, care plan, records and questions',
+            'Caregivers see only what she allows',
+            'Routine admin handled by the care assistant',
+            'English, Hindi, Tamil and Telugu throughout',
+            'Emergency help and offline check-ins'
+          ],
+          callout: 'AI assists. Doctors decide.',
+          detail: {
+            type: 'value',
+            columns: [
+              { title: 'For the woman', items: [
+                'Daily check-ins alone or with a helper, even offline',
+                'Appointments with a calendar link',
+                'Care plan, reminders and records together',
+                'Ask her doctor a question',
+                'Emergency help: numbers to call, her own contact, nearby hospitals',
+                'Password or SMS sign-in',
+                'Her own language, with read-aloud'
+              ] },
+              { title: 'For caregivers', items: [
+                'See only the sections she allowed',
+                'Remind her of visits and check-ins (3 per kind per day)',
+                'Ask the doctor on her behalf',
+                'Emergency help',
+                'She can end the access at any time'
+              ] },
+              { title: 'For doctors', items: [
+                'One inbox for questions and documents',
+                'The assistant proposes, the doctor approves',
+                'Undo and pause on every assistant step',
+                'Reference search in Hindi, Tamil and Telugu',
+                'Weekly counts',
+                'A full audit trail'
+              ] },
+              { title: 'For the clinic', items: [
+                'Fewer scattered chats and calls',
+                'Consistent communication',
+                'Operational results that can be measured within 60 to 90 days'
+              ] }
+            ],
+            note: 'Operational value only. MaternaSync does not diagnose, recommend treatment, score risk or interpret results.',
+            evidence: '**Evidence note (S6, S7):** In a Cochrane review, text-message reminders raised appointment attendance compared with no reminder (risk ratio 1.14, 95% CI 1.03 to 1.26, moderate certainty); no health outcomes were measured. MaternaSync has not yet shown any result of its own; the pilot will.'
+          }
+        },
+        {
+          key: 'segments', title: 'Customer Segments', icon: 'users', tag: 'proposed',
+          desc: 'Primary: maternal-health clinics and hospitals. Clear separation between who buys, who uses and who benefits.',
+          bullets: [
+            'Maternal-health clinics and nursing homes (primary)',
+            'Hospital obstetrics departments',
+            'Multi-clinic groups and networks',
+            'Community health programmes (future)'
+          ],
+          detail: {
+            type: 'segments',
+            secondary: { sub: 'Secondary segments', items: ['Hospital obstetrics departments', 'Multi-clinic groups', 'NGOs and community health programmes (future)'] },
+            users: { sub: 'Users', items: ['Pregnant women', 'Family caregivers', 'Doctors'] },
+            extra: [
+              { sub: 'Sizing anchors, not a forecast (S3 S9 S10)', items: [
+                'About 2.52 crore births were registered in India in 2023',
+                'FOGSI reported 43,011 individual members in December 2023',
+                'A 2022 survey report describes low-cost private hospitals and clinics as close to 70% of healthcare delivery'
+              ] },
+              { sub: 'What small private providers say (S10)', items: [
+                'Cost, too few skilled staff and too little customisable software hold digital adoption back',
+                '16% of the 45 surveyed hospitals relied entirely on paper records',
+                '70% still preferred in-person consultations'
+              ] }
+            ],
+            cards: [
+              { icon: 'wallet', label: 'Buyer', text: 'Clinic or hospital management, or the lead doctor' },
+              { icon: 'user', label: 'User', text: 'Doctors, pregnant women and their caregivers' },
+              { icon: 'heart-pulse', label: 'Beneficiary', text: "The mother, her baby and family, and the clinic's operations" }
+            ],
+            note: 'This distinction is illustrative of a target market model. It does not mean any clinic has agreed to adopt or buy MaternaSync.'
+          }
+        },
+        {
+          key: 'channels', title: 'Channels', icon: 'route', tag: 'implemented',
+          desc: 'How women, caregivers and doctors reach MaternaSync, and how clinics would adopt it.',
+          bullets: [
+            'Installable web app for phone and desktop',
+            'Doctor-led onboarding in the clinic',
+            'Caregiver invitation by single-use code',
+            'SMS sign-in and WhatsApp reminders'
+          ],
+          detail: {
+            type: 'channels',
+            sub: 'Full channel set',
+            items: [
+              "Web app that can be added to a phone's home screen and keeps check-ins when offline",
+              'Sign in with a password or an SMS code (Twilio Verify)',
+              'Caregiver invitation code: single use, valid for 48 hours',
+              'Reminders in the app and by WhatsApp (consent-checked; simulated or by link in the demo)',
+              'Cost note (S15, S16, S21): one SMS verification costs about ₹12.7 (Twilio Verify fee plus the India SMS rate, at ₹95.25 per US$), so SMS sign-in suits enrolment and recovery better than every login',
+              'Messaging rules (S17): from 1 October 2026 utility messages in an open WhatsApp conversation are charged, and only the first 1,000 service replies per number each month are free',
+              'Phone access (S22): in NFHS-6, 63.6% of women have a mobile phone they use themselves, so shared-phone and caregiver use matters',
+              'Live demo: maternasync.vercel.app',
+              'Clinic onboarding sessions (proposed)',
+              'Introduction by the doctor at the clinic (proposed)',
+              'Health-a-thon and other platforms (proposed)'
+            ],
+            journeySub: 'Clinic-to-home journey',
+            journey: [
+              { icon: 'hospital', label: 'Clinic' },
+              { icon: 'user-plus', label: 'Woman signs up' },
+              { icon: 'stethoscope', label: 'Connected to her doctor' },
+              { icon: 'heart-pulse', label: 'Daily check-ins' },
+              { icon: 'users', label: 'Caregiver invited' },
+              { icon: 'message-circle', label: 'Questions, reminders, visits' }
+            ]
+          }
+        },
+        {
+          key: 'relationships', title: 'Customer Relationships', icon: 'heart-handshake', tag: 'proposed',
+          desc: 'Clinic-led and human-supervised: the doctor stays in charge and the woman stays in control of her sharing.',
+          bullets: [
+            'Clinic onboarding and staff training',
+            'In-app guided tour for new doctors and patients',
+            'Consent-checked reminders',
+            'Pilot support and regular review'
+          ],
+          detail: {
+            type: 'list',
+            sub: 'Relationship model',
+            items: [
+              'Clinic onboarding sessions',
+              'Training for doctors and staff',
+              'In-app guided tour (built)',
+              'Help text and screens in four languages (built)',
+              'A support channel during the pilot',
+              'Monthly review of usage counts with the lead doctor',
+              'Content and translation review cycles with the doctor partner and native speakers',
+              'Feedback from women and caregivers'
+            ],
+            note: 'Human-supervised by design: AI assists, doctors decide. This does not change as the relationship matures.'
+          }
+        },
+        {
+          key: 'revenue', title: 'Revenue Streams', icon: 'indian-rupee', tag: 'proposed',
+          desc: 'A proposed facility subscription: clinics pay; women and caregivers always use MaternaSync free. Illustrative and subject to validation in the pilot.',
+          bullets: [
+            'Clinic subscription per doctor per month',
+            'One-time setup and onboarding fee',
+            'Training and premium support',
+            'Integrations and private deployment (quoted)'
+          ],
+          detail: {
+            type: 'revenue',
+            sub: 'Pricing structure',
+            views: [
+              { key: 'proposed', label: 'Proposed model', printTitle: 'Proposed model', caption: '', rows: [
+                ['Clinic subscription', 'Per doctor, per month'],
+                ['Setup and onboarding', 'One-time per clinic'],
+                ['Training', 'Per session or bundled'],
+                ['Messaging (SMS, WhatsApp)','Passed through at cost'],
+                ['Integrations (HMIS, FHIR)', 'Quoted per integration']
+              ] },
+              { key: 'illustrative', label: 'Illustrative breakdown', printTitle: 'Illustrative breakdown (pilot numbers)', caption: 'Pilot numbers', rows: [
+                ['Clinic subscription', "About ₹1,200 per doctor a month (the team's cost-recovery estimate; the bottom-up check in Cost Structure gives ₹1,213 to ₹1,690)"],
+                ['Setup and onboarding', 'About ₹15,000 once (5-doctor pilot)'],
+                ['Training', 'Included in setup (₹4,000 of it)'],
+                ['Messaging', 'Provider charges, passed through'],
+                ['Integrations', 'Quoted, not priced yet']
+              ] }
+            ],
+            additionalSub: 'Additional revenue (proposed)',
+            additional: [
+              'Private or managed deployment',
+              'Customisation of workflows and languages',
+              'Premium support',
+              'Counts-only reporting add-ons',
+              'Grants, innovation funding and CSR support (none secured)'
+            ],
+            paragraphs: [
+              { sub: 'Price benchmarks (S11, S12)', text: "Healthray lists ₹499 to ₹1,299 per user per month, billed yearly. Eka Care lists ₹4,999 to ₹37,999 a year, about ₹417 to ₹3,167 a month, with the per-doctor basis not stated. The team's ₹1,200 sits inside that span, but those products also bundle records and billing, so willingness to pay for a coordination layer is untested." },
+              { sub: 'Price check', text: 'the bottom-up cost range implies ₹1,213 to ₹1,690 per doctor a month, so ₹1,200 only breaks even at best. The pilot should ask its doctors to rank ₹1,200, ₹1,500 and ₹1,800 a month.' }
+            ],
+            note: 'Proposed commercial model. Illustrative and cost-based, not a price list, and not validated with any clinic.'
+          }
+        },
+        {
+          key: 'activities', title: 'Key Activities', icon: 'zap', tag: 'implemented',
+          desc: 'The work that keeps check-ins, questions and updates flowing between the woman, her caregiver and her doctor.',
+          bullets: [
+            'Daily check-ins, records and visit management',
+            'Routing questions and documents to the doctor',
+            'Reminders and follow-ups by the care assistant',
+            'Multilingual reference search',
+            'Doctor review, approval and audit'
+          ],
+          detail: {
+            type: 'list',
+            sub: 'Full activity set',
+            items: [
+              'Patient sign-up with location-based Emergency help',
+              'Daily check-ins, including step-by-step and offline',
+              'Caregiver invitations and permission-based sharing',
+              'Question routing, with one fixed emergency message and a doctor alert for urgent wording',
+              'Document intake (OCR) and verification proposals',
+              'Visit requests and reminders',
+              'Referral follow-up',
+              'Draft paperwork for the doctor to review',
+              'Weekly counts for the doctor',
+              'Reference Library upkeep and passage search',
+              'Translation upkeep in four languages',
+              'Audit logging of important actions',
+              'Automated testing (497 backend tests) and scope-guard checks',
+              'Deployment and monitoring',
+              'Clinical content review with the doctor partner (proposed)',
+              'Clinic onboarding and staff training (proposed)'
+            ]
+          }
+        },
+        {
+          key: 'resources', title: 'Key Resources', icon: 'layers', tag: 'implemented',
+          desc: 'The software, content and expertise MaternaSync is built on.',
+          bullets: [
+            'Three portals: patient, caregiver, doctor',
+            'LangGraph care assistant with 17 controlled tools and a policy engine',
+            'Reference Library: 76 documents, 19 searchable PDFs',
+            'Four-language interface and patient reference pages',
+            'DADA team and doctor partner'
+          ],
+          detail: {
+            type: 'list',
+            sub: 'Full resource set',
+            items: [
+              'React and TypeScript web app (installable, offline check-ins)',
+              'Python FastAPI backend with SQLite',
+              'LangGraph workflows with a policy engine, undo and pause controls',
+              'Audit log and role-based permissions',
+              'multilingual-e5-small on ONNX Runtime for optional search by meaning',
+              'Reference Library: 76 documents, of which 19 openly licensed PDFs are searchable by page',
+              'Patient reference pages: 18 topics and 5 helplines in four languages, with read-aloud',
+              'Caregiver invitation and sharing system',
+              'Phone sign-in with Twilio Verify',
+              '497 automated backend tests and scope-guard checks',
+              'Live deployments on Vercel and Render',
+              'The DADA team (Darshan C S, Andryan Durai, Akshaya P, Dinesh G) and doctor partner Lathika S'
+            ]
+          }
+        },
+        {
+          key: 'partners', title: 'Key Partners', icon: 'handshake', tag: 'proposed',
+          desc: 'Organisations MaternaSync would work with to pilot, validate and run the platform.',
+          bullets: [
+            'Maternal-health clinics and hospitals (pilot sites)',
+            'Doctor partner and clinical advisors',
+            'Hindi, Tamil and Telugu language reviewers',
+            'Cloud, SMS and messaging providers',
+            'Open-source AI and web ecosystem'
+          ],
+          detail: {
+            type: 'list',
+            sub: 'Current and potential partners',
+            items: [
+              'Maternal-health clinics and hospitals (pilot sites)',
+              'Doctor partner: Lathika S, and further clinical advisors',
+              'Native-speaker reviewers for Hindi, Tamil and Telugu',
+              'Community health workers and NGOs (future)',
+              'Vercel (website hosting) and Render (API hosting): current',
+              'Twilio Verify (SMS phone sign-in): current, trial account',
+              'WhatsApp Business Cloud API (reminders): optional',
+              'OpenStreetMap (nearby hospitals): current data source',
+              'Open-source building blocks: LangGraph, FastAPI, React, multilingual-e5-small, ONNX Runtime',
+              'Health-system integrators for HMIS and FHIR links (future)',
+              'ABDM (ABHA health IDs and the facility and professional registries): a possible integration path, not yet built (S23)',
+              "JANANI, the government's maternal and child health platform launched in May 2026: a platform to complement, not replace; no integration exists (S8)",
+              'Guideline publishers (WHO, MoHFW/NHM, ICMR, FOGSI, NICE) are sources for the Reference Library, not partners'
+            ],
+            note: 'These are current vendors, data sources and potential partner categories. No organisation is labelled an official partner unless there is evidence of that relationship; the doctor partner is the only named person.'
+          }
+        },
+        {
+          key: 'cost', title: 'Cost Structure', icon: 'wallet', tag: 'proposed',
+          desc: "The cost of running MaternaSync for a pilot clinic. The team's own estimate is checked against current vendor prices. All figures are estimates, not quotes.",
+          bullets: [
+            "Team estimate: about ₹15,000 once and ₹6,000 a month (5-doctor pilot)",
+            'Bottom-up check on vendor prices: about ₹6,100 to ₹8,400 a month',
+            'Biggest swings: a possible paid hosting workspace, and SMS sign-in volume',
+            'Variable: messaging, AI usage, storage, support, training'
+          ],
+          detail: {
+            type: 'cost',
+            columns: [
+              { title: 'One-time (team estimate)', rows: [
+                ['Cloud and server setup', '₹3,000'],
+                ['Database and storage setup', '₹3,000'],
+                ['Security and testing', '₹5,000'],
+                ['Training and onboarding', '₹4,000']
+              ], total: ['Total', '₹15,000'] },
+              { title: 'Monthly (team estimate)', rows: [
+                ['Hosting', '₹2,000'],
+                ['Database and file storage', '₹2,000'],
+                ['Monitoring and backups', '₹1,000'],
+                ['AI usage allowance', '₹1,000']
+              ], total: ['Total', '₹6,000'] },
+              { title: 'Monthly (bottom-up check, S13 S14 S17 S21)', items: [
+                'Render web service, 1 CPU and 2 GB, US$25 = ₹2,381',
+                'Persistent disk, 10 GB at US$0.25 a GB = ₹238',
+                'Vercel Pro, one seat, US$20 = ₹1,905 (the free Hobby plan is "for personal, non-commercial use")',
+                'Monitoring and backups ₹1,000 (team estimate, not checked)',
+                'WhatsApp reminders: 4,000 a month at about ₹0.115 plus 18% GST = ₹543 (volume assumed: 500 women × 8 reminders)',
+                '**Total ₹6,067**',
+                "Add ₹2,381 if Render's US$25 Pro workspace turns out to be required: **₹8,448**",
+                'Per doctor: ₹1,213 to ₹1,690'
+              ] },
+              { title: 'Variable and not in any total', items: [
+                'SMS sign-in: Twilio Verify US$0.05 plus India SMS US$0.0832 = about ₹12.7 per verification (S15 S16): 500 enrolments once ≈ ₹6,300; 2,000 sign-ins a month ≈ ₹25,400',
+                'Optional AI step (team allowance ₹1,000 a month, not checked)',
+                'About 300 MB more memory for search by meaning',
+                'Support, training and clinical review time'
+              ] }
+            ],
+            note: "Converted at ₹95.2492 per US$ (RBI reference rate, 30 Oct 2026, as republished by MSEI; S21). Prices were read on vendor pages on 4 Nov 2026. WhatsApp rupee rates come from third-party guides because Meta's page did not show its rupee table (S17). The free demo hosting costs nothing but erases its database on every restart."
+          }
+        }
+      ]
+    },
+
+    gtm: {
+      eyebrow: 'How MaternaSync can scale',
+      heading: 'Go-To-Market Model',
+      description: 'A phased path from a single-clinic pilot toward a connected network. Phase 4 is a potential future direction, not a current capability.',
+      phases: [
+        { n: 1, title: 'Pilot', icon: 'flag', items: [
+          'One maternal-health clinic',
+          '5 doctors and about 500 women',
+          '60 to 90 days',
+          'Staff training and onboarding',
+          'Weekly usage counts reviewed with the lead doctor',
+          'Doctor and native-speaker review of content',
+          'Willingness-to-pay interviews with the pilot doctors (no payment taken)'
+        ] },
+        { n: 2, title: 'Multi-Clinic Rollout', icon: 'network', items: [
+          'More clinics on the same onboarding kit',
+          'Persistent database, file storage and backups',
+          'WhatsApp reminders switched on and tested live',
+          'SMS sign-in on a paid plan',
+          'Feedback loop from women and caregivers',
+          'Data-protection readiness before the main DPDP duties start on 13 May 2027 (S18)'
+        ] },
+        { n: 3, title: 'Connected Platform', icon: 'building-complex', items: [
+          'Links to clinic appointment and patient-management systems through APIs',
+          'Standard record exchange (FHIR) with hospital systems',
+          'Managed hosting and stronger security',
+          'Subscription billing for facilities',
+          'Optional ABDM links (S23)',
+          'A regulatory check against the CDSCO medical device software guidance (S19)'
+        ] },
+        { n: 4, title: 'Regional Maternal-Care Network', icon: 'globe', future: true, items: [
+          'Community health programmes and NGOs',
+          'More Indian languages',
+          'Hospital groups'
+        ], note: '**Note:** Potential expansion — not current capability.' }
+      ]
+    },
+
+    packages: {
+      eyebrow: 'Illustrative packaging — not current commercial pricing',
+      heading: 'Commercial Packages',
+      description: 'Three illustrative tiers to frame a conversation about deployment scope — not published price points.',
+      legend: { label: 'Status tags on features:', none: 'none = built', planned: 'Planned' },
+      disclaimer: 'Illustrative packaging — not current commercial pricing.',
+      tiers: [
+        { name: 'Pilot', tagline: 'One clinic, proof of value.', features: [
+          'Patient, caregiver and doctor portals',
+          'Daily check-ins with offline use',
+          'Caregiver sharing controlled by the woman',
+          'Questions and documents to the doctor',
+          'Four languages',
+          'Care assistant in assist mode, with undo and pause',
+          'Reference Library with word search',
+          'Onboarding and training'
+        ] },
+        { name: 'Clinic', tagline: 'Several doctors, one clinic.', featured: true, badge: 'Most common starting point', features: [
+          { t: 'Everything in Pilot', lead: true },
+          { t: 'Persistent hosting and backups', tag: 'Planned' },
+          'WhatsApp reminders',
+          'Search by meaning in Hindi, Tamil and Telugu',
+          { t: 'SMS phone sign-in', tag: 'Built' },
+          'Weekly counts and clinic overview',
+          { t: 'Priority support', tag: 'Planned' }
+        ] },
+        { name: 'Network', tagline: 'Several clinics or a private deployment.', features: [
+          { t: 'Everything in Clinic', lead: true },
+          { t: 'Private deployment', tag: 'Planned' },
+          { t: 'Links to clinic and hospital systems', tag: 'Planned' },
+          { t: 'Custom workflows and language review', tag: 'Planned' },
+          { t: 'Advanced security and audit exports', tag: 'Planned' },
+          { t: 'Dedicated support', tag: 'Planned' }
+        ] }
+      ]
+    },
+
+    pilot: {
+      eyebrow: 'Pilot plan',
+      heading: 'Pilot economics and measures',
+      description: "What a 60 to 90 day single-clinic pilot would cost to run and how success would be judged. Figures are the team's estimates; no results have been measured yet.",
+      stats: [
+        { icon: 'stethoscope', value: '5', label: 'doctors' },
+        { icon: 'users', value: '≈ 500', label: 'women' },
+        { icon: 'wallet', value: '₹15,000', label: 'one-time setup', tag: 'team estimate' },
+        { icon: 'calendar-clock', value: '₹6,000', label: 'a month', tag: 'team estimate' },
+        { icon: 'calendar-clock', value: '₹6,100 to ₹8,400', label: 'a month', tag: 'estimate', sub: 'bottom-up check, see Cost Structure' },
+        { icon: 'indian-rupee', value: '≈ ₹1,200', label: 'per doctor a month', sub: 'derived from the team estimate' },
+        { icon: 'indian-rupee', value: '₹1,213 to ₹1,690', label: 'per doctor a month', sub: 'derived from the bottom-up check' }
+      ],
+      smallprint: 'Team estimates, and a bottom-up check against vendor prices read on 4 November 2026 at ₹95.25 per US$. Not a price and not a result.',
+      measure: {
+        title: 'How success would be measured',
+        sub: 'Operational only; no targets stated, baseline first.',
+        icon: 'clipboard-check',
+        items: [
+          'Share of agreed check-ins completed',
+          "Time from a question to the doctor's reply",
+          'Share of questions and documents the assistant routes without manual sorting',
+          'Missed visits, and appointment attendance after reminders (the outcome the Cochrane review of text reminders measured, S6)',
+          'Share of women with at least one caregiver connected',
+          "Doctors' own estimate of time spent on routine admin",
+          'Satisfaction of doctors, women and caregivers'
+        ]
+      },
+      assume: {
+        title: 'Assumptions to validate in the pilot',
+        icon: 'list-checks',
+        items: [
+          "Clinics will pay a per-doctor subscription at or above break-even (₹1,213 to ₹1,690 a month per doctor on today's vendor prices)",
+          'Doctors save time on routine admin',
+          'Women and caregivers keep using it after the first weeks',
+          'Hindi, Tamil and Telugu wording is accurate after native-speaker review',
+          "Real patient data can be handled with proper storage, backups and privacy controls (today's deployment is for demonstration only and is not suitable for real patient data)",
+          'Messaging providers can be switched on at a workable cost (an SMS verification is about ₹12.7 today, S15 S16)'
+        ]
+      }
+    },
+
+    evidence: {
+      eyebrow: 'Evidence',
+      heading: 'Research and evidence',
+      description: "What the numbers on this page rest on. Every figure from outside the team carries a source tag, and the Sources list says whether each source was opened and read or only reported. Nothing here is a forecast or a result MaternaSync has achieved. Checked 4 November 2026.",
+
+      need: {
+        title: 'The need',
+        cards: [
+          { stat: '88 per 100,000', text: "India's maternal mortality ratio in 2021–23 (S1). About **260,000** maternal deaths occurred worldwide in 2023 (S2). These describe the context; MaternaSync does not claim to change them." },
+          { stat: 'Four visits became eight contacts', text: "WHO's 2016 guidance moved from four antenatal visits to eight contacts (S5). In India's NFHS-6 (2023–24), **65.2%** of mothers had four or more antenatal visits and **76.2%** had a first-trimester visit (S4); about **35%** did not reach four visits (derived)." },
+          { stat: '2.52 crore births', text: 'were registered in India in 2023 (S3).' },
+          { stat: '63.6%', text: 'of women have a mobile phone they use themselves (NFHS-6, S22); about **36%** (derived) do not, so shared-phone and caregiver use matters.' }
+        ]
+      },
+
+      supports: {
+        title: 'What the evidence supports, and what it does not',
+        items: [
+          { lead: 'Reminders help attendance.', text: 'A Cochrane review (8 trials, 6,615 participants) found text-message reminders raised appointment attendance compared with no reminder: risk ratio 1.14 (95% CI 1.03 to 1.26; 7 studies, 5,841 participants; moderate certainty). Two studies found text reminders cost 55% and 65% less per attendance than phone calls. The included studies reported no health outcomes (S6).' },
+          { lead: 'One-way messages have limits.', text: "Kilkari, the government's voice-message service (13 states, over 10 million subscribers by April 2019), delivered 34% of calls in its 2018 cohort: 66% were not delivered and 17% were answered. Among answered calls, over 48% were listened to for at least half (S7). The study measured exposure, not health outcomes, and Kilkari is a different product." },
+          { lead: 'What is missing.', text: 'There is no evidence yet that MaternaSync itself changes any outcome. The pilot will measure operational results only.' }
+        ]
+      },
+
+      landscape: {
+        title: 'Landscape: what exists today',
+        cols: ['Name', 'What it is', 'What it means for MaternaSync'],
+        rows: [
+          ['JANANI (government, May 2026)', 'An upgrade of the RCH portal: self-registration, reminders for antenatal visits and immunisations, QR Mother and Child Health cards, registration by ABHA, Aadhaar or mobile number, links to U-WIN and POSHAN; 1.34 crore registrations, over 30 lakh of them pregnant women (S8)', 'Free to women. The sources reviewed do not say which languages it supports or whether private clinics can use it. MaternaSync is positioned as a clinic-side complement and a possible integration, not a replacement.'],
+          ['Kilkari (government)', 'Weekly voice messages from the second trimester until the child is one year old (S7)', 'One-way and affected by call delivery; shows the limits of one-way messaging.'],
+          ['e-SAATHI', 'Guideline-based antenatal and postnatal information in English, Hindi, Assamese, Marathi and Kannada, as reported (S24)', 'Reported languages do not include Tamil or Telugu.'],
+          ['SwasthGarbh (IIT Roorkee, AIIMS Delhi)', 'A free app for patients and doctors, as reported (S25)', 'An academic example of the patient-plus-doctor model.'],
+          ['ABDM', 'National digital health IDs (more than 90 crore ABHA accounts) and registries (S23)', 'A possible integration path.'],
+          ['Healthray, Eka Care', 'General clinic records and billing software with published prices (S11, S12)', 'The pages reviewed do not describe maternity-specific, caregiver-permission or four-language features. That is what the pages say, not a claim about the whole products. Pilot interviews should confirm it.']
+        ],
+        takeawaysTitle: 'Takeaways',
+        takeaways: [
+          'Government tools are free to women, so MaternaSync charges clinics and never women or caregivers.',
+          'The clinic is the paying customer.',
+          'The claimed differences (caregiver permissions, English, Hindi, Tamil and Telugu together, a clinic-side assistant with human approval, offline check-ins) are to be tested in the pilot, not assumed.'
+        ]
+      },
+
+      prices: {
+        title: 'Price benchmarks',
+        cols: ['Product', 'Published price', 'Per month (derived)', 'Note'],
+        rows: [
+          ['Healthray Clinical Management (S11)', '₹499 to ₹699 per user per month, billed yearly; ₹30,000 to ₹36,000 a year per care centre of up to 10 users', '₹499 to ₹699 per user', "The vendor's per-user and per-centre figures do not reconcile; the patient app costs extra"],
+          ['Healthray Practice Management (S11)', '₹699 to ₹1,299 per user per month; ₹36,000 to ₹54,000 a year per centre', '₹699 to ₹1,299 per user', 'Includes OPD, billing, records'],
+          ['Eka Care (S12)', '₹4,999, ₹9,999, ₹16,999 or ₹37,999 a year', '₹417, ₹833, ₹1,417 or ₹3,167', 'Per-doctor basis not stated'],
+          ["MaternaSync, the team's cost-recovery estimate", 'About ₹1,200 per doctor a month (₹6,000 ÷ 5)', '₹1,200', 'Derived; not a price list']
+        ],
+        reading: "**Reading:** The team's figure sits inside the published span. But those products bundle records and billing, and MaternaSync is a coordination layer. Small private providers say cost, too few skilled staff and too little customisable software hold adoption back, and 16% of the 45 hospitals surveyed still used paper only (S10). Willingness to pay for this layer is untested."
+      },
+
+      costCheck: {
+        title: 'Cost reality check: one month for 5 doctors and about 500 women',
+        cols: ['Item', 'Source', 'US$', '₹ at 95.2492'],
+        rows: [
+          ['Render web service, 1 CPU, 2 GB', 'S13', '25', '2,381'],
+          ['Persistent disk, 10 GB at US$0.25 a GB', 'S13', '2.50', '238'],
+          ['Vercel Pro, one seat (the free Hobby plan is "for personal, non-commercial use")', 'S14', '20', '1,905'],
+          ['Monitoring and backups', 'team estimate, not checked', '—', '1,000'],
+          ['WhatsApp: 4,000 utility messages (500 women × 8, assumed) at about ₹0.115, plus 18% GST', 'S17 (rate: third-party guides)', '—', '543'],
+          ['**Total**', '', '', '**6,067**'],
+          ["If Render's Pro workspace (US$25) is required", 'S13', '25', '+2,381 → **8,448**'],
+          ['Per doctor (÷ 5)', 'derived', '—', '**1,213 to 1,690**'],
+          ['Team estimate for comparison', "the team's cost plan", '—', '6,000']
+        ],
+        after: [
+          "**SMS sign-in is priced per verification:** Twilio Verify US$0.05 plus India SMS US$0.0832 = US$0.1332, about **₹12.7** each, before tax and carrier fees (S15, S16). Enrolling 500 women once costs about ₹6,300; 2,000 SMS sign-ins in a month cost about ₹25,400, more than four times the team's whole monthly estimate. SMS sign-in therefore suits enrolment and recovery better than every login.",
+          '**Messaging rules (S17):** from 1 October 2026 utility messages in an open WhatsApp conversation are charged, and each business number gets 1,000 free service messages a month; businesses in India must move to rupee billing by 31 December 2026 or their messages stop from 1 January 2027.',
+          "**Reading:** The team's ₹6,000 a month is the right order of magnitude. On today's vendor prices it is slightly low, and the cost per doctor (₹1,213 to ₹1,690) is above the ₹1,200 break-even figure."
+        ]
+      },
+
+      scenarios: {
+        title: 'Market-size scenarios',
+        label: 'Scenario arithmetic, not a forecast',
+        intro: "No verified count of private maternity clinics or nursing homes was found. The only doctor count found is FOGSI's membership of 43,011 individual members at December 2023, which includes public-sector doctors; not all would buy (S9). The table shows what adoption levels would mean at a price; it is not a market-size claim.",
+        cols: ['Share of FOGSI members subscribing', 'Doctors (derived)', 'Revenue a year at ₹1,200 a month', 'Revenue a year at ₹1,500 a month'],
+        rows: [
+          ['1%', '430', '₹61.9 lakh', '₹77.4 lakh'],
+          ['5%', '2,151', '₹3.10 crore', '₹3.87 crore'],
+          ['10%', '4,301', '₹6.19 crore', '₹7.74 crore']
+        ]
+      },
+
+      regulation: {
+        title: 'Regulation and compliance',
+        cards: [
+          { title: 'Data protection (DPDP Rules 2025, S18)', text: "Notified on 13 November 2025 (some sources say 14 November). The Data Protection Board provisions applied at once; consent-manager duties follow after 12 months; the main duties (notice, security safeguards, breach reporting, retention and children's data) apply 18 months after notification, from **13 May 2027**. They include plain-language standalone notices, encryption and access controls, access logs kept at least one year, and breach reports to the Board without delay with a detailed report within 72 hours. Commentary says the Fourth Schedule exempts clinical establishments and healthcare professionals from the parental-consent rule and the tracking and targeting limits when processing is for listed purposes such as delivering health services; whether that reaches a software vendor to clinics needs legal advice. Penalty ceilings in the Act's schedule: up to ₹250 crore (failing to keep reasonable security safeguards), ₹200 crore (failing to report a breach; children's data), ₹150 crore (significant data fiduciaries), ₹50 crore (other breaches). A pilot in early 2027 starts before the main duties apply but should be built to meet them: persistent encrypted storage, access logs, a breach process and notices in four languages." },
+          { title: 'Medical device software (CDSCO, S19)', text: 'Commentary dated 5 August 2026 on the final guidance says general wellness software is excluded from medical devices, but software that measures, estimates or reports physiologic values for medical or clinical purposes is not general wellness software. MaternaSync shows patient-entered values as entered to doctors and does not interpret them. Whether that counts as reporting physiologic values for clinical purposes is a question for a regulatory adviser before any commercial launch. The primary CDSCO text was not opened.' },
+          { title: 'National digital health (ABDM, S23, S12)', text: 'ABHA health IDs and the facility and professional registries are an optional integration path; some clinic software already advertises ABDM compliance.' },
+          { title: 'Messaging and hosting (S14, S17)', text: "Rupee billing for WhatsApp by 31 December 2026; Vercel's free plan is for personal, non-commercial use." }
+        ]
+      },
+
+      funding: {
+        title: 'Funding routes',
+        items: [
+          '**Startup India Seed Fund Scheme (S20):** a grant of up to ₹20 lakh for proof of concept, prototype or product trials, and up to ₹50 lakh in debt or convertible debentures for market entry or scaling. The startup must be DPIIT-recognised, incorporated less than two years before applying, with at least 51% Indian promoter shareholding; money goes through DPIIT-selected incubators. Terms were read in a summary because the official portal returned no content. No application has been made.',
+          'Other routes (other grants, CSR, incubators) were not researched.'
+        ]
+      },
+
+      notVerified: {
+        title: 'What we have not verified',
+        items: [
+          'The share of births in private facilities, and the number of private maternity clinics and nursing homes (the national survey fact sheet could not be reached). No private-market size is claimed.',
+          "Practo Ray's official prices (only third-party listings were found).",
+          "Meta's rupee rate card (the page was opened but its table was not shown): the ₹0.115 utility rate comes from third-party guides.",
+          'Indian SMS gateway prices, SMS registration rules (DLT) and Twilio carrier fees.',
+          'Which languages JANANI supports, and whether private clinics can use it.',
+          'Any maternity-specific commercial competitor: none appeared in the sources reviewed, but the search was not exhaustive.',
+          'Willingness to pay for a coordination layer: there is no direct evidence.',
+          "The primary texts of the DPDP Rules, the Act's penalty schedule and the CDSCO guidance (commentary was read instead).",
+          'FOGSI membership, civil-registration births, ABDM totals, startup-scheme terms, the maternal mortality figures and the exchange rate were found in search listings or summaries and their pages were not opened (blocked, timed out or not tried).',
+          'The exchange rate changes daily; all rupee conversions use ₹95.2492 per US$.'
+        ]
+      },
+
+      researchPlan: {
+        title: 'Pilot research plan',
+        badge: 'Proposal',
+        items: [
+          '**Operational measures** as in the Pilot plan; record attendance after reminders, because that is the outcome the Cochrane review measured.',
+          '**Interviews:** short discovery and willingness-to-pay interviews with all five pilot doctors, and with a sample of women and caregivers; ask each doctor to rank ₹1,200, ₹1,500 and ₹1,800 a month, with no payment taken.',
+          '**Cost log:** record real hosting, SMS and WhatsApp use for the whole pilot and replace the estimates in Cost Structure.',
+          "**Compliance:** a data-protection checklist against the DPDP Rules and a regulatory adviser's view on the CDSCO question before any commercial launch.",
+          '**Report back:** replace "no results measured yet" on the page with real counts.'
+        ]
+      }
+    },
+
+    sources: {
+      eyebrow: 'Evidence',
+      heading: 'Sources',
+      description: 'Research was done on 4 November 2026 by web search and by opening the source pages. Each source is labelled by how far it could be checked: **Opened** (I read the page itself), **Opened (vendor)** (a vendor\'s own price page), **Opened (commentary)** (a law-firm summary of a rule), **Reported** (found only in search listings or news summaries; the page was blocked, timed out or not opened). Currency conversions use ₹95.2492 per US$ (S21). Anything worked out from other numbers is marked "derived".',
+      supportsLabel: 'Supports',
+      sourceLabel: 'Source and date',
+      list: [
+        { id: 'S1', supports: "India's maternal mortality ratio, 88 per 100,000 live births, 2021–23", source: 'Registrar General of India, special bulletin on maternal mortality, 2021–23 (released September 2025)', links: ['https://censusindia.gov.in/nada/index.php/catalog/46177'], quality: 'Reported' },
+        { id: 'S2', supports: 'About 260,000 maternal deaths worldwide in 2023', source: 'UN Maternal Mortality Estimation Inter-Agency Group (WHO, UNICEF, UNFPA, World Bank, UN DESA), *Trends in maternal mortality 2000 to 2023*', links: ['https://www.unfpa.org/publications/trends-maternal-mortality-2000-2023'], quality: 'Reported' },
+        { id: 'S3', supports: '2.52 crore births registered in 2023 (2.54 crore in 2022); registration 98.4%', source: 'Registrar General of India, *Vital Statistics of India based on the Civil Registration System 2023* (October 2025)', links: ['https://dc.crsorgi.gov.in/assets/download/Annual-Reports/crs/2023.pdf'], quality: 'Reported (figures from news summaries)' },
+        { id: 'S4', supports: 'NFHS-6 (2023–24): institutional births 90.6%; four or more antenatal visits 65.2% (58.5% before); first-trimester visit 76.2%', source: 'PTI report in DT Next, 30 May 2026 (survey by the Health Ministry and IIPS)', links: ['https://www.dtnext.in/news/national/institutional-deliveries-in-india-up-from-886-in-2019-2020-to-906-in-2023-24-survey'], quality: 'Opened (news report)' },
+        { id: 'S5', supports: 'WHO moved from four antenatal visits to eight contacts', source: 'WHO news release, 7 November 2016', links: ['https://www.who.int/news/item/07-11-2016-new-guidelines-on-antenatal-care-for-a-positive-pregnancy-experience'], quality: 'Opened' },
+        { id: 'S6', supports: 'Text reminders and appointment attendance', source: 'Gurol-Urganci et al., Cochrane review CD007458, 2013 (8 trials, 6,615 participants)', links: ['https://www.cochrane.org/evidence/CD007458_mobile-phone-messaging-reminders-attendance-healthcare-appointments'], quality: 'Opened' },
+        { id: 'S7', supports: 'Kilkari voice messages: delivery and listening, 2018 cohort', source: 'Peer-reviewed study of Kilkari call data (PubMed Central)', links: ['https://pmc.ncbi.nlm.nih.gov/articles/PMC8327807'], quality: 'Opened' },
+        { id: 'S8', supports: 'JANANI platform: launch, features, registrations', source: 'IANS, 7 May 2026; Business Today, 10 May 2026', links: ['https://ianslive.in/govt-launches-janani-platform-to-strengthen-maternal-child-healthcare--20260507130718'], quality: 'Opened (news report)' },
+        { id: 'S9', supports: 'FOGSI had 43,011 individual members in December 2023', source: "FOGSI Secretary General's message", links: ['https://www.fogsi.org/?p=2175'], quality: 'Reported (page blocked)' },
+        { id: 'S10', supports: 'Small private providers: about 70% of delivery; adoption barriers; 45-hospital survey', source: 'Sattva Knowledge Institute, *Digital readiness of small healthcare providers*, October 2022', links: ['https://www.sattva.co.in/wp-content/uploads/2022/11/Digital-Readiness_Small-Healthcare-Providers.pdf'], quality: 'Opened' },
+        { id: 'S11', supports: 'Healthray clinic software prices', source: 'Healthray pricing page', links: ['https://healthray.com/pricing/'], quality: 'Opened (vendor)' },
+        { id: 'S12', supports: 'Eka Care prices; "ABDM compliant" claim', source: 'Eka Care pricing page', links: ['https://www.eka.care/eka-for-doctors/emr-ehr-medical-software/cardiologists'], quality: 'Opened (vendor)' },
+        { id: 'S13', supports: 'Render hosting prices', source: 'Render pricing', links: ['https://render.com/pricing.md'], quality: 'Opened (vendor)' },
+        { id: 'S14', supports: 'Vercel prices; Hobby plan "for personal, non-commercial use"', source: 'Vercel pricing', links: ['https://vercel.com/pricing'], quality: 'Opened (vendor)' },
+        { id: 'S15', supports: 'Twilio Verify: US$0.05 per successful verification plus channel fees', source: 'Twilio pricing', links: ['https://www.twilio.com/en-us/verify/pricing'], quality: 'Opened (vendor)' },
+        { id: 'S16', supports: 'Twilio SMS to India: US$0.0832 per segment', source: 'Twilio pricing', links: ['https://www.twilio.com/en-us/sms/pricing/in'], quality: 'Opened (vendor)' },
+        { id: 'S17', supports: 'WhatsApp: billing and free-allowance dates (opened); India rupee rates of about ₹0.115 for utility and ₹0.8631 for marketing (third-party guides)', source: 'Meta pricing page; rates from pricing guides such as whautomate', links: ['https://developers.facebook.com/docs/whatsapp/pricing', 'https://whautomate.com/whatsapp-business-api-pricing-india'], quality: 'Opened (vendor) for dates; Reported for rupee rates' },
+        { id: 'S18', supports: "DPDP Rules 2025 timeline and duties; Act penalty ceilings", source: "Legal500 commentary on the Rules; the Act's schedule as reproduced on dpdpa.com", links: ['https://www.legal500.com/intelligence/india/privacy/a-closer-look-at-the-dpdp-rules-2025', 'https://dpdpa.com/theschedule.html'], quality: 'Opened (commentary); penalties Reported' },
+        { id: 'S19', supports: 'CDSCO guidance on medical device software', source: 'Legal500 commentary, 5 August 2026', links: ['https://www.legal500.com/intelligence/india/food-drugs-healthcare-life-sciences/cdsco-publishes-guidance-on-medical-device-software-under-mdr-2017'], quality: 'Opened (commentary)' },
+        { id: 'S20', supports: 'Startup India Seed Fund Scheme terms', source: 'TaxGuru summary (official portal returned no content)', links: ['https://taxguru.in/finance/startup-india-seed-fund-scheme-eligibility-amount-funding.html'], quality: 'Reported' },
+        { id: 'S21', supports: '₹95.2492 per US$ on 30 October 2026', source: 'RBI reference rate as republished by MSEI (MSEI says for viewing only)', links: ['https://www.msei.in/markets/currency/historical-data/rbireferenceratearchives'], quality: 'Reported' },
+        { id: 'S22', supports: '63.6% of women have a mobile phone they use (NFHS-6)', source: 'The News Minute', links: ['https://www.thenewsminute.com/news/womens-internet-use-nearly-doubles-but-access-gaps-remain'], quality: 'Reported' },
+        { id: 'S23', supports: 'ABDM: more than 90 crore ABHA accounts by May 2026', source: 'All India Radio', links: ['https://newsonair.gov.in/ayushman-bharat-digital-mission-crosses-landmark-milestone-of-90-crore-abhas/'], quality: 'Reported (page timed out)' },
+        { id: 'S24', supports: 'e-SAATHI: guideline-based antenatal and postnatal information in English, Hindi, Assamese, Marathi and Kannada', source: 'Millennium Post', links: ['https://www.millenniumpost.in/nation/e-saathi-ai-powered-digital-companion-for-maternal-health-648879'], quality: 'Reported' },
+        { id: 'S25', supports: 'SwasthGarbh app from IIT Roorkee and AIIMS Delhi', source: 'Deccan Herald', links: ['https://www.deccanherald.com/india/iit-roorkee-aiims-delhi-develop-swasthgarbh-app-for-pregnant-women-1175570.html'], quality: 'Reported' }
+      ]
+    },
+
+    footer: {
+      line1: 'MaternaSync · Business model proposal for discussion and validation · Built by DADA for Health-a-thon 2026',
+      line2: 'The demonstration uses synthetic records only and is not suitable for real patient data. Nothing here is a price list, a promise of results or a clinical claim.',
+      links: [
+        { label: 'Live demo', href: 'https://maternasync.vercel.app/signin' },
+        { label: 'Source', href: 'https://github.com/Akshaya0206-tech/MaternaSync' }
+      ]
+    }
+  };
+
+  /* =======================================================================
+     Small helpers
+     ======================================================================= */
+  const $ = (sel, root) => (root || document).querySelector(sel);
+  const $$ = (sel, root) => Array.from((root || document).querySelectorAll(sel));
+  const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  const ico = (name, cls) => '<i data-lucide="' + name + '"' + (cls ? ' class="' + cls + '"' : '') + ' aria-hidden="true"></i>';
+  /* **bold**, *italic*, and source tags: S6 becomes a small link to its entry in the Sources list */
+  const rich = (s) => esc(s)
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\*(.+?)\*/g, '<em>$1</em>')
+    .replace(/\bS(\d{1,2})\b/g, '<a class="stag" href="#src-S$1" title="Source S$1">S$1</a>');
+  const list = (items, cls) => '<ul class="' + cls + '">' + items.map((i) => '<li>' + rich(i) + '</li>').join('') + '</ul>';
+  const note = (t) => (t ? '<p class="note">' + rich(t) + '</p>' : '');
+  const sub = (t) => '<h4 class="d-sub">' + rich(t) + '</h4>';
+  const para = (p) => '<div>' + sub(p.sub) + '<p class="d-text">' + rich(p.text) + '</p></div>';
+  const reduceMotion = () => window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function refreshIcons(root) {
+    if (window.lucide && typeof window.lucide.createIcons === 'function') {
+      window.lucide.createIcons(root ? { root: root } : undefined);
+    }
+  }
+
+  const badge = (kind) => kind === 'implemented'
+    ? '<span class="badge-raw">' + ico('circle-check') + esc(DATA.ui.implemented) + '</span>'
+    : '<span class="badge-pending">' + ico('circle-dashed') + esc(DATA.ui.proposed) + '</span>';
+
+  const secHead = (id, d) =>
+    '<div class="sec-head reveal"><p class="eyebrow">' + esc(d.eyebrow) + '</p>' +
+    '<h2 class="page-title" id="' + id + '-title">' + esc(d.heading) + '</h2>' +
+    '<p>' + rich(d.description) + '</p></div>';
+
+  /* =======================================================================
+     Render functions
+     ======================================================================= */
+  function renderChrome() {
+    const u = DATA.ui;
+    $('#skip-link').textContent = u.skip;
+
+    $('#topbar').innerHTML =
+      '<div class="topbar-inner">' +
+        '<a class="brand" href="#top" id="brand-link" aria-label="' + esc(u.brand + ', back to top') + '">' +
+          '<span class="brand-tile">' + ico('heart-pulse') + '</span>' +
+          '<span class="brand-name">' + esc(u.brand) + '</span></a>' +
+        '<span class="bar-divider" aria-hidden="true"></span>' +
+        '<span class="bar-label">' + esc(u.barLabel) + '</span>' +
+        '<div class="bar-actions">' +
+          '<button type="button" class="bar-btn ghost" id="btn-present" aria-label="' + esc(u.present) + '">' + ico('presentation') + '<span class="txt">' + esc(u.present) + '</span></button>' +
+          '<button type="button" class="bar-btn mint" id="btn-print" aria-label="' + esc(u.print) + '">' + ico('printer') + '<span class="txt">' + esc(u.print) + '</span></button>' +
+          '<button type="button" class="bar-btn ghost" id="btn-theme"><span class="ico"></span><span class="txt"></span></button>' +
+        '</div>' +
+      '</div>';
+
+    $('#subnav').innerHTML = '<div class="subnav-inner">' +
+      u.nav.map((n) => '<a href="#' + n.id + '" data-id="' + n.id + '" data-text="' + esc(n.label) + '">' + esc(n.label) + '</a>').join('') + '</div>';
+
+    $('#exit-pill').innerHTML = ico('x') + '<span>' + esc(u.exitPresent) + '</span>';
+  }
+
+  function renderHero() {
+    const h = DATA.hero;
+    $('#hero').innerHTML =
+      '<div class="container hero-inner">' +
+        '<div class="lockup"><span class="lockup-tile">' + ico('heart-pulse') + '</span><span class="lockup-name">' + esc(DATA.ui.brand) + '</span></div>' +
+        '<span class="badge-pending">' + ico('lightbulb') + esc(h.eyebrow) + '</span>' +
+        '<h1 class="page-title hero-title" id="hero-title">' + esc(h.titlePlain) + ' <span class="accent">' + esc(h.titleAccent) + '</span></h1>' +
+        '<p class="hero-sub">' + esc(h.subtitle) + '</p>' +
+        '<p class="hero-support">' + esc(h.support) + '</p>' +
+        '<ul class="chips">' + h.badges.map((b) => '<li class="chip">' + ico(b.icon) + esc(b.label) + '</li>').join('') + '</ul>' +
+        '<div class="hero-cta"><a class="btn-primary" href="#canvas">' + esc(h.button) + ico('arrow-down') + '</a></div>' +
+      '</div>';
+  }
+
+  /* ---- Canvas: detail panels, one function per layout ---- */
+  const DETAIL = {
+    list: (d) => sub(d.sub) + list(d.items, 'dlist') + note(d.note),
+
+    value: (d) =>
+      '<div class="cols cols-4">' + d.columns.map((c) =>
+        '<div><h4 class="d-title">' + rich(c.title) + '</h4>' + list(c.items, 'dlist') + '</div>').join('') + '</div>' + note(d.note) + note(d.evidence),
+
+    segments: (d) =>
+      '<div>' + sub(d.secondary.sub) + list(d.secondary.items, 'dlist') + '</div>' +
+      '<div>' + sub(d.users.sub) + list(d.users.items, 'dlist') + '</div>' +
+      (d.extra || []).map((x) => '<div>' + sub(x.sub) + list(x.items, 'dlist') + '</div>').join('') +
+      '<div class="trio">' + d.cards.map((c) =>
+        '<div class="mini"><div class="mini-label"><span class="mini-icon">' + ico(c.icon) + '</span>' + esc(c.label) + '</div><p>' + rich(c.text) + '</p></div>').join('') + '</div>' +
+      note(d.note),
+
+    cost: (d) =>
+      '<div class="cols cols-4">' + d.columns.map((c) => {
+        let body;
+        if (c.rows) {
+          body = '<div class="cost-list">' +
+            c.rows.map((r) => '<div class="cost-row"><span>' + esc(r[0]) + '</span><span class="amt">' + esc(r[1]) + '</span></div>').join('') +
+            '<div class="cost-row total"><span>' + esc(c.total[0]) + '</span><span class="amt">' + esc(c.total[1]) + '</span></div></div>';
+        } else {
+          body = list(c.items, 'dlist');
+        }
+        return '<div><h4 class="d-title">' + rich(c.title) + '</h4>' + body + '</div>';
+      }).join('') + '</div>' + note(d.note),
+
+    channels: (d) =>
+      '<div>' + sub(d.sub) + list(d.items, 'dlist') + '</div>' +
+      '<div>' + sub(d.journeySub) + '<div class="journey" style="margin-top:8px">' +
+        d.journey.map((j, i) => '<span class="jstep"><span class="jchip">' + ico(j.icon) + esc(j.label) + '</span>' +
+          (i < d.journey.length - 1 ? '<span class="jarrow" aria-hidden="true">' + ico('chevron-right') + '</span>' : '') + '</span>').join('') + '</div></div>',
+
+    revenue: (d) =>
+      '<div>' + sub(d.sub) + '</div>' +
+      '<div class="seg" role="group" aria-label="' + esc(DATA.ui.revenueView) + '">' +
+        d.views.map((v, i) => '<button type="button" data-view="' + v.key + '" aria-pressed="' + (i === 0) + '">' + esc(v.label) + '</button>').join('') + '</div>' +
+      d.views.map((v, i) =>
+        '<div class="rev-view" data-view-panel="' + v.key + '"' + (i === 0 ? '' : ' hidden') + '>' +
+          '<p class="view-title">' + esc(v.printTitle) + '</p>' +
+          (v.caption ? '<p class="view-caption">' + esc(v.caption) + '</p>' : '') +
+          '<div class="rev-list">' + v.rows.map((r) =>
+            '<div class="rev-row"><span class="rev-name">' + rich(r[0]) + '</span><span class="rev-pill">' + esc(r[1]) + '</span></div>').join('') + '</div>' +
+        '</div>').join('') +
+      '<div>' + sub(d.additionalSub) + list(d.additional, 'dlist') + '</div>' +
+      (d.paragraphs || []).map(para).join('') + note(d.note)
+  };
+
+  function renderBlock(b) {
+    const id = 'detail-' + b.key;
+    const open = !!b.open;
+    const row = DATA.canvas.rows[b.key];
+    return '<article class="block glass-panel reveal b-' + b.key + (row ? ' row-' + row : '') + (b.featured ? ' featured' : '') + (open ? ' is-open' : '') + '" data-key="' + b.key + '">' +
+      '<header class="block-head">' +
+        '<span class="tile' + (b.featured ? '' : ' sm') + '">' + ico(b.icon) + '</span>' +
+        '<div class="block-title-wrap"><h3 class="block-title page-title">' + esc(b.title) + '</h3>' + badge(b.tag) + '</div>' +
+      '</header>' +
+      '<p class="block-desc">' + esc(b.desc) + '</p>' +
+      list(b.bullets, 'bullets') +
+      (b.callout ? '<span class="callout badge-ai">' + ico('user-check') + esc(b.callout) + '</span>' : '') +
+      '<span class="grow" aria-hidden="true"></span>' +
+      '<button type="button" class="toggle btn-outline-emerald" aria-expanded="' + open + '" aria-controls="' + id + '">' +
+        '<span class="toggle-label">' + esc(open ? DATA.ui.collapse : DATA.ui.expand) + '</span><span class="chev">' + ico('chevron-down') + '</span></button>' +
+      '<div class="detail" id="' + id + '"><div class="detail-inner"><div class="detail-body">' + DETAIL[b.detail.type](b.detail) + '</div></div></div>' +
+    '</article>';
+  }
+
+  function renderCanvas() {
+    const c = DATA.canvas;
+    $('#canvas').innerHTML = '<div class="container">' + secHead('canvas', c) +
+      '<div class="legend reveal"><span class="legend-label">' + esc(c.legendLabel) + '</span>' +
+        '<span class="badge-raw">' + ico('circle-check') + esc(c.legend[0]) + '</span>' +
+        '<span class="badge-pending">' + ico('circle-dashed') + esc(c.legend[1]) + '</span></div>' +
+      '<div class="canvas-grid" id="canvas-grid">' + c.blocks.map(renderBlock).join('') + '</div></div>';
+  }
+
+  function renderGtm() {
+    const g = DATA.gtm;
+    $('#gtm').innerHTML = '<div class="container">' + secHead('gtm', g) +
+      '<div class="track" id="track"><div class="track-line" aria-hidden="true"><span class="track-progress"></span></div>' +
+      '<ol class="phases">' + g.phases.map((p) =>
+        '<li class="phase reveal' + (p.future ? ' future' : '') + '">' +
+          '<div class="phase-dot">' + ico(p.icon) + '<span class="phase-num" aria-hidden="true">' + p.n + '</span></div>' +
+          '<div class="phase-card glass-panel"><span class="phase-label">Phase ' + p.n + '</span><h3 class="page-title">' + esc(p.title) + '</h3>' +
+            list(p.items, 'bullets') + note(p.note) + '</div></li>').join('') +
+      '</ol></div></div>';
+  }
+
+  function renderPackages() {
+    const p = DATA.packages;
+    const tagClass = (t) => /not live-tested/i.test(t) ? 'tag-warn' : /^planned/i.test(t) ? 'tag-planned' : 'tag-built';
+    const rowClass = (t) => /not live-tested/i.test(t) ? 'warn' : /^planned/i.test(t) ? 'planned' : '';
+    $('#packages').innerHTML = '<div class="container">' + secHead('packages', p) +
+      '<p class="pk-legend" style="margin-top:-16px;margin-bottom:12px">' + esc(p.legend.label) + ' <span>' + esc(p.legend.none) + '</span> · ' +
+        '<span class="tag tag-planned">' + esc(p.legend.planned) + '</span></p>' +
+      '<div class="packages">' + p.tiers.map((t) =>
+        '<article class="pkg glass-panel reveal' + (t.featured ? ' featured' : '') + '">' +
+          (t.featured ? '<span class="badge-raw pkg-badge">' + ico('sparkles') + esc(t.badge) + '</span>' : '') +
+          '<h3 class="page-title">' + esc(t.name) + '</h3><p class="pkg-tagline">' + esc(t.tagline) + '</p>' +
+          '<ul class="features">' + t.features.map((f) => {
+            const o = typeof f === 'string' ? { t: f } : f;
+            const cls = o.tag ? rowClass(o.tag) : '';
+            const icon = cls === 'planned' ? 'circle-dashed' : 'check';
+            return '<li class="' + cls + '">' + ico(icon) + '<span' + (o.lead ? ' class="lead"' : '') + '>' + esc(o.t) +
+              (o.tag ? '<span class="tag ' + tagClass(o.tag) + '">' + esc(o.tag) + '</span>' : '') + '</span></li>';
+          }).join('') + '</ul>' +
+          '<p class="pkg-foot">' + esc(p.disclaimer) + '</p></article>').join('') + '</div></div>';
+  }
+
+  function renderPilot() {
+    const d = DATA.pilot;
+    const plist = (x, cls) =>
+      '<article class="plist glass-panel reveal ' + cls + '"><div class="plist-head"><span class="tile sm">' + ico(x.icon) + '</span><div><h3 class="page-title">' + esc(x.title) + '</h3>' +
+      (x.sub ? '<p class="plist-sub">' + esc(x.sub) + '</p>' : '') + '</div></div>' + list(x.items, 'dlist') + '</article>';
+    $('#pilot').innerHTML = '<div class="container">' + secHead('pilot', d) +
+      '<div class="stat-card-row">' + d.stats.map((s) =>
+        '<div class="stat glass-panel reveal"><div class="stat-tile">' + ico(s.icon) + '</div><div class="stat-body">' +
+          '<div class="stat-value' + (s.value.length > 5 ? ' long' : '') + (s.value.length > 10 ? ' xlong' : '') + '">' + esc(s.value) + '</div>' +
+          '<div class="stat-label">' + esc(s.label) + '</div>' +
+          (s.tag ? '<div class="stat-sub"><span class="tag tag-warn">' + esc(s.tag) + '</span></div>' : '') +
+          (s.sub ? '<div class="stat-sub">(' + esc(s.sub) + ')</div>' : '') +
+        '</div></div>').join('') + '</div>' +
+      '<p class="smallprint">' + esc(d.smallprint) + '</p>' +
+      '<div class="pilot-lists">' + plist(d.measure, 'measure') + plist(d.assume, 'assume') + '</div></div>';
+  }
+
+  /* ---- Evidence and Sources ---- */
+  function dataTable(cols, rows, label) {
+    return '<div class="table-wrap glass-panel" role="region" tabindex="0" aria-label="' + esc(label) + '"><table class="data-table"><thead><tr>' +
+      cols.map((c) => '<th scope="col">' + rich(c) + '</th>').join('') + '</tr></thead><tbody>' +
+      rows.map((r) => '<tr>' + r.map((c, i) => (i === 0 ? '<th scope="row">' : '<td>') + rich(c) + (i === 0 ? '</th>' : '</td>')).join('') + '</tr>').join('') +
+      '</tbody></table></div>';
+  }
+
+  function renderEvidence() {
+    const e = DATA.evidence;
+    const group = (inner) => '<div class="ev-group reveal">' + inner + '</div>';
+    const h = (t, extra) => '<div class="ev-title"><h3 class="page-title">' + esc(t) + '</h3>' + (extra || '') + '</div>';
+    const text = (t) => '<p class="ev-text">' + rich(t) + '</p>';
+    const card = (title, body, cls) => '<article class="ev-card glass-panel ' + (cls || '') + '"><h4>' + rich(title) + '</h4>' + body + '</article>';
+
+    $('#evidence').innerHTML = '<div class="container">' + secHead('evidence', e) +
+      group(h(e.need.title) + '<div class="need-grid">' + e.need.cards.map((c) =>
+        '<article class="need glass-panel"><div class="need-stat page-title">' + esc(c.stat) + '</div><p>' + rich(c.text) + '</p></article>').join('') + '</div>') +
+
+      group(h(e.supports.title) + '<div class="ev-grid ev-grid-3">' + e.supports.items.map((i) => card(i.lead, '<p>' + rich(i.text) + '</p>')).join('') + '</div>') +
+
+      group(h(e.landscape.title) + dataTable(e.landscape.cols, e.landscape.rows, e.landscape.title) +
+        '<div class="ev-card glass-panel takeaways"><h4>' + esc(e.landscape.takeawaysTitle) + '</h4><ol class="numlist">' +
+        e.landscape.takeaways.map((t) => '<li>' + rich(t) + '</li>').join('') + '</ol></div>') +
+
+      group(h(e.prices.title) + dataTable(e.prices.cols, e.prices.rows, e.prices.title) + text(e.prices.reading)) +
+
+      group(h(e.costCheck.title) + dataTable(e.costCheck.cols, e.costCheck.rows, e.costCheck.title) + e.costCheck.after.map(text).join('')) +
+
+      group(h(e.scenarios.title, '<span class="badge-pending">' + ico('triangle-alert') + esc(e.scenarios.label) + '</span>') +
+        text(e.scenarios.intro) + dataTable(e.scenarios.cols, e.scenarios.rows, e.scenarios.title)) +
+
+      group(h(e.regulation.title) + '<div class="ev-grid ev-grid-2">' + e.regulation.cards.map((c, i) =>
+        card(c.title, '<p>' + rich(c.text) + '</p>', i === 0 ? 'wide' : '')).join('') + '</div>') +
+
+      group(h(e.funding.title) + '<div class="ev-card glass-panel">' + list(e.funding.items, 'dlist ev-list') + '</div>') +
+
+      group(h(e.notVerified.title) + '<div class="ev-card glass-panel unverified"><ol class="numlist">' +
+        e.notVerified.items.map((t) => '<li>' + rich(t) + '</li>').join('') + '</ol></div>') +
+
+      group(h(e.researchPlan.title, '<span class="badge-pending">' + esc(e.researchPlan.badge) + '</span>') +
+        '<div class="ev-card glass-panel">' + list(e.researchPlan.items, 'dlist ev-list') + '</div>') +
+      '</div>';
+  }
+
+  function renderSources() {
+    const s = DATA.sources;
+    const chip = (q) => '<span class="' + (/^Opened/.test(q) && !/Reported/.test(q) ? 'badge-raw' : /^Reported/.test(q) ? 'badge-pending' : 'badge-neutral') + '">' + esc(q) + '</span>';
+    $('#sources').innerHTML = '<div class="container">' + secHead('sources', s) +
+      '<ol class="sources">' + s.list.map((x) =>
+        '<li class="source glass-panel reveal" id="src-' + x.id + '">' +
+          '<div class="source-top"><span class="sid">' + esc(x.id) + '</span>' + chip(x.quality) + '</div>' +
+          '<p class="source-supports"><span class="d-sub">' + esc(s.supportsLabel) + '</span>' + esc(x.supports) + '</p>' +
+          '<p class="source-by"><span class="d-sub">' + esc(s.sourceLabel) + '</span>' + rich(x.source) + '</p>' +
+          '<p class="source-links">' + x.links.map((u) => '<a href="' + esc(u) + '" target="_blank" rel="noopener noreferrer">' + esc(u) + '</a>').join('') + '</p>' +
+        '</li>').join('') + '</ol></div>';
+  }
+
+  function renderFooter() {
+    const f = DATA.footer;
+    $('#footer').innerHTML = '<div class="container"><p>' + esc(f.line1) + '</p><p>' + esc(f.line2) + '</p>' +
+      '<p class="links">' + f.links.map((l) => '<a href="' + esc(l.href) + '" target="_blank" rel="noopener noreferrer">' + esc(l.label) + ico('external-link') + '</a>').join('') + '</p></div>';
+  }
+
+  /* =======================================================================
+     Behaviour
+     ======================================================================= */
+  function initCanvasToggles() {
+    const grid = $('#canvas-grid');
+    grid.addEventListener('click', function (e) {
+      const toggle = e.target.closest('.toggle');
+      if (toggle) {
+        const block = toggle.closest('.block');
+        const open = !block.classList.contains('is-open');
+        block.classList.toggle('is-open', open);
+        toggle.setAttribute('aria-expanded', String(open));
+        $('.toggle-label', toggle).textContent = open ? DATA.ui.collapse : DATA.ui.expand;
+        return;
+      }
+      const viewBtn = e.target.closest('[data-view]');
+      if (viewBtn && viewBtn.tagName === 'BUTTON') {
+        const block = viewBtn.closest('.block');
+        const key = viewBtn.getAttribute('data-view');
+        $$('.seg [data-view]', block).forEach(function (b) { b.setAttribute('aria-pressed', String(b === viewBtn)); });
+        $$('[data-view-panel]', block).forEach(function (p) { p.hidden = p.getAttribute('data-view-panel') !== key; });
+      }
+    });
+  }
+
+  /* Theme: light by default; the saved choice is applied before paint (see <head>). */
+  function initTheme() {
+    const root = document.documentElement;
+    const btn = $('#btn-theme');
+    function paint() {
+      const dark = root.getAttribute('data-theme') === 'dark';
+      const label = dark ? DATA.ui.lightMode : DATA.ui.darkMode;
+      $('.ico', btn).innerHTML = ico(dark ? 'sun' : 'moon');
+      $('.txt', btn).textContent = label;
+      btn.setAttribute('aria-label', label);
+      btn.setAttribute('title', label);
+      refreshIcons(btn);
+    }
+    btn.addEventListener('click', function () {
+      const dark = root.getAttribute('data-theme') !== 'dark';
+      if (dark) root.setAttribute('data-theme', 'dark'); else root.removeAttribute('data-theme');
+      try { localStorage.setItem('maternasync-bm-theme', dark ? 'dark' : 'light'); } catch (e) { /* session only */ }
+      paint();
+    });
+    paint();
+  }
+
+  /* Presentation Mode: hides the bars, shows an exit pill; Esc leaves. */
+  function initPresentation() {
+    const btn = $('#btn-present');
+    const pill = $('#exit-pill');
+    function set(on) {
+      document.body.classList.toggle('presenting', on);
+      const label = on ? DATA.ui.exitPresent : DATA.ui.present;
+      $('.txt', btn).textContent = label;
+      btn.setAttribute('aria-label', label);
+      if (on) {
+        window.scrollTo({ top: 0, behavior: reduceMotion() ? 'auto' : 'smooth' });
+        pill.focus({ preventScroll: true });
+      } else {
+        btn.focus({ preventScroll: true });
+      }
+    }
+    btn.addEventListener('click', function () { set(!document.body.classList.contains('presenting')); });
+    pill.addEventListener('click', function () { set(false); });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && document.body.classList.contains('presenting')) set(false);
+    });
+  }
+
+  function initPrint() {
+    $('#btn-print').addEventListener('click', function () { window.print(); });
+  }
+
+  /* Highlight the sub-navigation link of the section in view. */
+  function initScrollSpy() {
+    const links = $$('#subnav a');
+    const sections = links.map(function (a) { return document.getElementById(a.getAttribute('data-id')); });
+    let ticking = false;
+    function update() {
+      ticking = false;
+      const bars = document.body.classList.contains('presenting') ? 0 : 60 + 48;
+      const line = bars + 80;
+      let current = -1;
+      sections.forEach(function (s, i) { if (s && s.getBoundingClientRect().top <= line) current = i; });
+      // the Sources list belongs to the Evidence link
+      const src = document.getElementById('sources');
+      const ev = links.findIndex(function (a) { return a.getAttribute('data-id') === 'evidence'; });
+      if (src && ev >= 0 && src.getBoundingClientRect().top <= line) current = ev;
+      links.forEach(function (a, i) {
+        a.classList.toggle('active', i === current);
+        if (i === current) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current');
+      });
+    }
+    window.addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
+    window.addEventListener('resize', update);
+    update();
+  }
+
+  /* Scroll reveal (the app's fadeIn) and the go-to-market progress line. */
+  function initReveal() {
+    const items = $$('.reveal');
+    const track = $('#track');
+    if (!('IntersectionObserver' in window) || reduceMotion()) {
+      items.forEach(function (el) { el.classList.add('in-view'); });
+      if (track) track.classList.add('is-on');
+      return;
+    }
+    const io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) { en.target.classList.add('in-view'); io.unobserve(en.target); }
+      });
+    }, { rootMargin: '0px 0px -5% 0px', threshold: 0.02 });
+    items.forEach(function (el) { io.observe(el); });
+
+    const tio = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) { en.target.classList.add('is-on'); tio.unobserve(en.target); }
+      });
+    }, { threshold: 0.3 });
+    tio.observe(track);
+  }
+
+  /* "View the Canvas" and the brand link scroll without leaving a hash behind when bars are hidden. */
+  function initAnchors() {
+    $('#brand-link').addEventListener('click', function (e) {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: reduceMotion() ? 'auto' : 'smooth' });
+    });
+  }
+
+  /* =======================================================================
+     Start
+     ======================================================================= */
+  renderChrome();
+  renderHero();
+  renderCanvas();
+  renderGtm();
+  renderPackages();
+  renderPilot();
+  renderEvidence();
+  renderSources();
+  renderFooter();
+
+  initCanvasToggles();
+  initTheme();
+  initPresentation();
+  initPrint();
+  initScrollSpy();
+  initReveal();
+  initAnchors();
+
+  /* The icon library is loaded with "defer": draw the icons once it is there. */
+  refreshIcons();
+  document.addEventListener('DOMContentLoaded', function () { refreshIcons(); });
+  window.addEventListener('load', function () { refreshIcons(); });
+})();
+</script>
+</body>
+</html>
